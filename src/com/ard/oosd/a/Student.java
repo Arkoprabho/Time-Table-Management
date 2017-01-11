@@ -27,7 +27,6 @@ class Student implements People{
 			System.out.println(rollNumber);
 		}
 		catch (NumberFormatException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

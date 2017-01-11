@@ -15,7 +15,6 @@ public class MainClass {
 	 * TODO remove once there is a different parth of execution
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		Student student = new Student();
 		student.input();
 	}
