@@ -34,11 +34,16 @@ class Student implements People{
 	@Override
 	public void views() {
 		// TODO implement the interface methods
+		/*
+		 * The student has the ability to view the time table.
+		 * */
 		
 	}
 	@Override
 	public void login() {
 		// TODO implement the interface methods
-		
+		/*
+		 * The student has the ability to login to the program.
+		 * */
 	}
 }
