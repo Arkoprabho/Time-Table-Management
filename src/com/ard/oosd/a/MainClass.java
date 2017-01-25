@@ -5,7 +5,7 @@ package com.ard.oosd.a;
 
 import java.awt.EventQueue;
 
-import com.ard.oos.r.WindowMain;
+import com.ard.oosd.r.WindowMain;
 
 /**
  * @author Arko
