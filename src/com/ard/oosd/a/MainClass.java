@@ -3,6 +3,10 @@
  */
 package com.ard.oosd.a;
 
+import java.awt.EventQueue;
+
+import com.ard.oos.r.WindowMain;
+
 /**
  * @author Arko
  *
@@ -15,8 +19,16 @@ public class MainClass {
 	 * TODO remove once there is a different parth of execution
 	 */
 	public static void main(String[] args) {
-		Student student = new Student();
-		student.input();
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					WindowMain window = new WindowMain();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 }
