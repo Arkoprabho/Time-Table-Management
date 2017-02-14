@@ -12,7 +12,7 @@ import java.io.InputStreamReader;
  * @author Arko<br>
  * Contains the basic functionalities of a student
  */
-class Student implements People{
+class Student implements PeopleInterface{
 	// The student can login, view his time table.
 	int rollNumber;
 	/**
