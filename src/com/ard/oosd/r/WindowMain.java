@@ -50,7 +50,7 @@ public class WindowMain {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(new CardLayout(0, 0));
 		homePanel = new JPanel();
-		frame.getContentPane().add(homePanel, "name_8858956923696");
+		frame.getContentPane().add(homePanel, "homepanel");
 		homePanel.setLayout(null);
 		
 		
@@ -97,7 +97,7 @@ public class WindowMain {
 	 */
 	private void admin() {
 		adminPanel = new JPanel();
-		frame.getContentPane().add(adminPanel, "name_63016655292923");
+		frame.getContentPane().add(adminPanel, "adminPanel");
 		adminPanel.setLayout(null);
 		
 		JButton btnNewButton_2 = new JButton("View time table");
@@ -138,7 +138,7 @@ public class WindowMain {
 	 */
 	private void inputRollNumber() {
 		rollNumberPanel = new JPanel();
-		frame.getContentPane().add(rollNumberPanel, "name_8874620241975");
+		frame.getContentPane().add(rollNumberPanel, "rollNumberPanel");
 		rollNumberPanel.setLayout(null);
 		
 		JLabel lblEnterUrIdrollno = new JLabel("Enter ur id/rollno:");
@@ -190,7 +190,7 @@ public class WindowMain {
 	 */
 	private void completeTimeTable() {
 		completeTimeTablePanel = new JPanel();
-		frame.getContentPane().add(completeTimeTablePanel, "name_8872538024640");
+		frame.getContentPane().add(completeTimeTablePanel, "completeTimeTablePanel");
 		completeTimeTablePanel.setLayout(null);
 		
 		txtYoyoYourComplete = new JTextField();
@@ -220,7 +220,7 @@ public class WindowMain {
 	 */
 	private void chooseBranch() {
 		chooseBranchPanel = new JPanel();
-		frame.getContentPane().add(chooseBranchPanel, "name_8869746804890");
+		frame.getContentPane().add(chooseBranchPanel, "chooseBranchPanel");
 		chooseBranchPanel.setLayout(null);
 		
 		JLabel lblEnterYourBranch = new JLabel("Enter your Branch:");
@@ -274,7 +274,7 @@ public class WindowMain {
 	 */
 	private void chooseYear() {
 		chooseYearPanel = new JPanel();
-		frame.getContentPane().add(chooseYearPanel, "name_8862230441779");
+		frame.getContentPane().add(chooseYearPanel, "chooseYearPanel");
 		chooseYearPanel.setLayout(null);
 		
 		JLabel lblEnterUrYear = new JLabel("Enter your year:");
