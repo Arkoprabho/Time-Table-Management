@@ -13,7 +13,7 @@ class Subjects {
     // Each subject needs to have a subject code, name and credit.
     int credit, subjectCode;
     String subjectName;
-    
+
     /**
      * Initializes a new instance of a subject.
      * @param credit
@@ -38,7 +38,7 @@ class Subjects {
 	}
 	return true;
     }
-    
+
     @Override
     public int hashCode() {
 	final int prime = 31;

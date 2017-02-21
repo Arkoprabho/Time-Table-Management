@@ -18,23 +18,24 @@ class Initiate {
     // Variable declaration
     private BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
     private ConcurrentHashMap<Professor, HashSet<Subjects>> professorHashMap= new ConcurrentHashMap<>();
-    
-    
+
+
     /**
      * Gets the input from the user.
      * @throws IOException
      */
     void input() throws IOException {
-	
+
 	int numberOfSubjects;
 	String name;
 	HashSet<Subjects> subjectList = new HashSet<>();
-	
+
 	System.out.print("Enter the name of the professor: ");
 	name = inputReader.readLine();
 	System.out.print("How many subjects are associated with this:  ");
+	// HACK: Weird formatting was seen when using only inputReader.read(), Thus this method is used.
 	numberOfSubjects = Integer.parseInt(inputReader.readLine());
-	
+
 	// Create the list of subject that the professor can teach.
 	while(numberOfSubjects-- != 0) {
 	    String subName;
@@ -52,9 +53,9 @@ class Initiate {
 	    }
 	    else
 		subjectList.add(subjectToAdd);
-	    
+
 	}
-	
+
 	// Associate the subjects with the professor.
 	professorHashMap.put(new Professor(name), subjectList);
     }
