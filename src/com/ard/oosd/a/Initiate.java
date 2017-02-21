@@ -6,8 +6,8 @@ package com.ard.oosd.a;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashSet;
-import java.util.concurrent.ConcurrentHashMap;
+import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -17,7 +17,6 @@ import java.util.concurrent.ConcurrentHashMap;
 class Initiate {
     // Variable declaration
     private BufferedReader inputReader = new BufferedReader(new InputStreamReader(System.in));
-    private ConcurrentHashMap<Professor, HashSet<Subjects>> professorHashMap= new ConcurrentHashMap<>();
 
 
     /**
@@ -28,12 +27,12 @@ class Initiate {
 
 	int numberOfSubjects;
 	String name;
-	HashSet<Subjects> subjectList = new HashSet<>();
+	List<Subjects> subjectList = new ArrayList<>();
 
 	System.out.print("Enter the name of the professor: ");
 	name = inputReader.readLine();
+	Professor professor = new Professor(name);
 	System.out.print("How many subjects are associated with this:  ");
-	// HACK: Weird formatting was seen when using only inputReader.read(), Thus this method is used.
 	numberOfSubjects = Integer.parseInt(inputReader.readLine());
 
 	// Create the list of subject that the professor can teach.
@@ -47,7 +46,7 @@ class Initiate {
 	    System.out.print("Subject credit: ");
 	    credit = Integer.parseInt(inputReader.readLine());
 	    Subjects subjectToAdd = new Subjects(subName, code, credit);
-	    if(!Subjects.CheckEquality(subjectToAdd, subjectList)) {
+	    if(!subjectToAdd.CheckEquality(subjectList)) {
 		System.out.println("Error. Try again!");
 		numberOfSubjects++;
 	    }
@@ -55,8 +54,8 @@ class Initiate {
 		subjectList.add(subjectToAdd);
 
 	}
-
+	
 	// Associate the subjects with the professor.
-	professorHashMap.put(new Professor(name), subjectList);
+	professor.setAssociatedSubject(subjectList);
     }
 }
