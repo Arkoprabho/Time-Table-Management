@@ -3,11 +3,11 @@
  */
 package com.ard.oosd.a;
 
-import java.util.HashSet;
+import java.util.List;
 
 /**
- * @author Arko
  * Class that holds the subjects associated with a professor.
+ * @author Arko
  */
 class Subjects {
     // Each subject needs to have a subject code, name and credit.
@@ -31,9 +31,9 @@ class Subjects {
      * @param subjectList
      * @return
      */
-    public static boolean CheckEquality(Subjects subjectToAdd, HashSet<Subjects> subjectList) {
+    public boolean CheckEquality(List<Subjects> subjectList) {
 	for (Subjects subjects : subjectList) {
-	    if(subjects.equals(subjectToAdd))
+	    if(subjects.equals(this))
 		return false;
 	}
 	return true;
