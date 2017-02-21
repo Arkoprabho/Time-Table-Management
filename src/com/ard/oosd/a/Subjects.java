@@ -3,41 +3,57 @@
  */
 package com.ard.oosd.a;
 
+import java.util.HashSet;
+
 /**
  * @author Arko
- * Enumeration that contains the subjects taught.
+ * Class that holds the subjects associated with a professor.
  */
-enum Subjects {
-    // TODO the subjects should not be hard-coded.
-    CompilerDesign(1001),
-    HighPerformanceComputerArchitecture(1002),
-    ObjectOrientedSystemDesign(1003),
-    ComputerGraphics(1004),
-    Economics(2003);
-    
-    // The value of the enum.
-    private int value;
-    
+class Subjects {
+    // Each subject needs to have a subject code, name and credit.
+    int credit, subjectCode;
+    String subjectName;
     
     /**
-     * Initializes the Subject with the given value.
-     * @param value
+     * Initializes a new instance of a subject.
+     * @param credit
+     * @param name
      */
-    private Subjects(int value) {
-	this.setValue(value);
+    public Subjects(String name, int code, int credit) {
+	subjectCode = code;
+	this.credit = credit;
+	subjectName = name;
     }
 
     /**
-     * @return the value associated with the subject
+     * Check if the subject has the same code as any other subject in the list.
+     * @param subjectToAdd
+     * @param subjectList
+     * @return
      */
-    int getValue() {
-	return value;
+    public static boolean CheckEquality(Subjects subjectToAdd, HashSet<Subjects> subjectList) {
+	for (Subjects subjects : subjectList) {
+	    if(subjects.equals(subjectToAdd))
+		return false;
+	}
+	return true;
+    }
+    
+    @Override
+    public int hashCode() {
+	final int prime = 31;
+	int result = 1;
+	result = prime * result + credit;
+	result = prime * result + subjectCode;
+	result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
+	return result;
     }
 
-    /**
-     * @param value the value to set
-     */
-    private void setValue(int value) {
-	this.value = value;
+    @Override
+    public boolean equals(Object obj) {
+	Subjects other = (Subjects) obj;
+	if (subjectCode != other.subjectCode)
+	    return false;
+	return true;
     }
 }
