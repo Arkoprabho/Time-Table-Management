@@ -16,7 +16,7 @@ public class MainClass {
 	/**
 	 * @param args
 	 * This class is only for my personal testing purpose.
-	 * TODO remove once there is a different parth of execution
+	 * TODO remove once there is a different path of execution
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
