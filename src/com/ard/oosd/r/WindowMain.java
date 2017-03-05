@@ -9,6 +9,7 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
@@ -20,6 +21,7 @@ public class WindowMain {
 	private JTextField textField_2;
 	private ButtonGroup yearButtonGroup=new ButtonGroup();
 	private ButtonGroup branchButtonGroup=new ButtonGroup();
+	JRadioButton rdbtnstYear,rdbtnndYear,rdbtnrdYear,rdbtnthYear,rdbtnCse,rdbtnIt;
 
 	// The first panel. This is what the user first sees.
 	JPanel homePanel;
@@ -53,28 +55,13 @@ public class WindowMain {
 		frame.getContentPane().add(homePanel, "homepanel");
 		homePanel.setLayout(null);
 		
-		
 		addLoginButton();
-		
 		addViewTimeTableButton();
-		
 		chooseYear();
-		
-		// Set the button parameters for the years.
-		JRadioButton rdbtnstYear = setButtonParameters("1st year", 219, 49, 109, 23, chooseYearPanel);
-		
-		JRadioButton rdbtnndYear = setButtonParameters("2nd year", 219, 75, 109, 23, chooseYearPanel);
-		
-		JRadioButton rdbtnrdYear = setButtonParameters("3rd year", 219, 100, 109, 23, chooseYearPanel);
-		
-		JRadioButton rdbtnthYear = setButtonParameters("4th year", 219, 126, 109, 23, chooseYearPanel);
 		
 		chooseBranch();
 		
-		// Set the button parameters for the branch.
-		JRadioButton rdbtnCse = setButtonParameters("CSE", 209, 64, 109, 23, chooseBranchPanel);
-		
-		JRadioButton rdbtnIt = setButtonParameters("IT", 209, 97, 109, 23, chooseBranchPanel);
+	
 		
 		completeTimeTable();
 		
@@ -101,7 +88,7 @@ public class WindowMain {
 		adminPanel.setLayout(null);
 		
 		JButton btnNewButton_2 = new JButton("View time table");
-		btnNewButton_2.setBounds(42, 119, 89, 23);
+		btnNewButton_2.setBounds(10, 119, 125, 23);
 		adminPanel.add(btnNewButton_2);
 		
 		JButton btnNewButton_3 = new JButton("EDIT DATABASE");
@@ -109,11 +96,11 @@ public class WindowMain {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton_3.setBounds(177, 119, 89, 23);
+		btnNewButton_3.setBounds(145, 119, 150, 23);
 		adminPanel.add(btnNewButton_3);
 		
 		JButton btnGenerate = new JButton("Generate");
-		btnGenerate.setBounds(309, 119, 89, 23);
+		btnGenerate.setBounds(305, 119, 119, 23);
 		adminPanel.add(btnGenerate);
 		
 		JButton btnLogout = new JButton("Logout");
@@ -192,7 +179,7 @@ public class WindowMain {
 		completeTimeTablePanel = new JPanel();
 		frame.getContentPane().add(completeTimeTablePanel, "completeTimeTablePanel");
 		completeTimeTablePanel.setLayout(null);
-		
+		//display time table
 		txtYoyoYourComplete = new JTextField();
 		txtYoyoYourComplete.setText("yoyo your complete timetable here");
 		txtYoyoYourComplete.setBounds(56, 151, 283, 20);
@@ -203,8 +190,10 @@ public class WindowMain {
 		btnBack_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				homePanel.setVisible(false);
-				chooseYearPanel.setVisible(false);
-				chooseBranchPanel.setVisible(true);
+				chooseYearPanel.setVisible(true);
+				chooseBranchPanel.setVisible(false);
+				branchButtonGroup.clearSelection();
+				yearButtonGroup.clearSelection();
 				rollNumberPanel.setVisible(false);
 				completeTimeTablePanel.setVisible(false);
 				adminPanel.setVisible(false);
@@ -223,20 +212,34 @@ public class WindowMain {
 		frame.getContentPane().add(chooseBranchPanel, "chooseBranchPanel");
 		chooseBranchPanel.setLayout(null);
 		
-		JLabel lblEnterYourBranch = new JLabel("Enter your Branch:");
-		lblEnterYourBranch.setBounds(80, 84, 110, 24);
+		JLabel lblEnterYourBranch = new JLabel("Choose your Branch:");
+		lblEnterYourBranch.setBounds(66, 104, 125, 14);
 		chooseBranchPanel.add(lblEnterYourBranch);
+		
+		// Set the button parameters for the branch.
+		rdbtnCse = new JRadioButton("CSE");
+		rdbtnCse.setBounds(209, 64, 109, 23);
+		chooseBranchPanel.add(rdbtnCse);
+		
+		rdbtnIt = new JRadioButton("IT");
+		rdbtnIt.setBounds(209, 97, 109, 23);
+		chooseBranchPanel.add(rdbtnIt);
 		
 		JButton btnSubmit_1 = new JButton("Submit");
 		btnSubmit_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(rdbtnCse.isSelected()||rdbtnIt.isSelected())
+				{
 				homePanel.setVisible(false);
 				chooseYearPanel.setVisible(false);
 				chooseBranchPanel.setVisible(false);
 				rollNumberPanel.setVisible(false);
 				completeTimeTablePanel.setVisible(true);
 				adminPanel.setVisible(false);
-			}
+				}
+				else
+					JOptionPane.showMessageDialog(frame, "please choose a branch");
+				}
 		});
 		btnSubmit_1.setBounds(157, 197, 89, 23);
 		chooseBranchPanel.add(btnSubmit_1);
@@ -247,6 +250,7 @@ public class WindowMain {
 				homePanel.setVisible(false);
 				chooseYearPanel.setVisible(true);
 				chooseBranchPanel.setVisible(false);
+				yearButtonGroup.clearSelection();
 				rollNumberPanel.setVisible(false);
 				completeTimeTablePanel.setVisible(false);
 				adminPanel.setVisible(false);
@@ -277,19 +281,42 @@ public class WindowMain {
 		frame.getContentPane().add(chooseYearPanel, "chooseYearPanel");
 		chooseYearPanel.setLayout(null);
 		
-		JLabel lblEnterUrYear = new JLabel("Enter your year:");
+		JLabel lblEnterUrYear = new JLabel("Choose your year:");
 		lblEnterUrYear.setBounds(70, 104, 120, 14);
 		chooseYearPanel.add(lblEnterUrYear);
+		
+		// Set the button parameters for the years.
+		rdbtnstYear = new JRadioButton("1st year");
+		rdbtnstYear.setBounds(219, 49, 109, 23);
+		chooseYearPanel.add(rdbtnstYear);
+		
+		rdbtnndYear = new JRadioButton("2nd year");
+		rdbtnndYear.setBounds(219, 75, 109, 23);
+		chooseYearPanel.add(rdbtnndYear);
+		
+		rdbtnrdYear = new JRadioButton("3rd year");
+		rdbtnrdYear.setBounds(219, 100, 109, 23);
+		chooseYearPanel.add(rdbtnrdYear);
+		
+		rdbtnthYear = new JRadioButton("4th year");
+		rdbtnthYear.setBounds(219, 126, 109, 23);
+		chooseYearPanel.add(rdbtnthYear);
 		
 		JButton btnSubmit = new JButton("Submit");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(rdbtnndYear.isSelected()||rdbtnrdYear.isSelected()||rdbtnstYear.isSelected()||rdbtnthYear.isSelected())
+				{
 				homePanel.setVisible(false);
 				chooseYearPanel.setVisible(false);
 				chooseBranchPanel.setVisible(true);
+				branchButtonGroup.clearSelection();
 				rollNumberPanel.setVisible(false);
 				completeTimeTablePanel.setVisible(false);
 				adminPanel.setVisible(false);
+				}
+				else
+					JOptionPane.showMessageDialog(frame, "please choose a year");
 			}
 		});
 		btnSubmit.setBounds(151, 200, 89, 23);
@@ -317,12 +344,13 @@ public class WindowMain {
 		JButton viewTimeTableButton = new JButton("View Time Table");
 		viewTimeTableButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-			homePanel.setVisible(false);
-			chooseYearPanel.setVisible(true);
-			chooseBranchPanel.setVisible(false);
-			rollNumberPanel.setVisible(false);
-			completeTimeTablePanel.setVisible(false);
-			adminPanel.setVisible(false);
+				homePanel.setVisible(false);
+				chooseYearPanel.setVisible(true);
+				yearButtonGroup.clearSelection();
+				chooseBranchPanel.setVisible(false);
+				rollNumberPanel.setVisible(false);
+				completeTimeTablePanel.setVisible(false);
+				adminPanel.setVisible(false);
 			}
 		});
 		
