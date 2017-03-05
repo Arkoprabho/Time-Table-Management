@@ -1,1 +1,14 @@
 /bin/
+.idea/Time-Table-Management.iml
+.idea/compiler.xml
+.idea/copyright/
+.idea/misc.xml
+.idea/modules.xml
+.idea/workspace.xml
+/.idea/vcs.xml
+.idea/
+Time-Table-Management.iml
+out/
+.classpath
+.project
+.idea
