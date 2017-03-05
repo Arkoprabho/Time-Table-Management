@@ -23,7 +23,7 @@ public class WindowMain {
 	private ButtonGroup branchButtonGroup=new ButtonGroup();
 	JRadioButton rdbtnstYear,rdbtnndYear,rdbtnrdYear,rdbtnthYear,rdbtnCse,rdbtnIt;
 
-	// The first panel. This is what the user first sees.
+	// The first panel.This is what the user first sees.
 	JPanel homePanel;
 	// Visible after the user chooses to view the time table. Here he can choose the year.
 	JPanel chooseYearPanel;
