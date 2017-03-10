@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ard.oosd.a.events;
 
 /**
