@@ -1,18 +1,22 @@
 package com.ard.oosd.a.sqlscripts;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import com.ard.oosd.a.events.ListenerInterface;
+import com.ard.oosd.a.events.SourceInterface;
+
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Enumeration;
 import java.util.Scanner;
 
 /**
  * Contains methods related to the connection of the database.
  * Created by arko on 10-03-2017.
  */
-public class DatabaseConnection {
+public class DatabaseConnection implements SourceInterface {
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
     private static String USER = "root";
@@ -29,12 +33,14 @@ public class DatabaseConnection {
         System.out.println("Database URL: " + DB_URL);
         System.out.println("Username: " + USER);
         System.out.println("Password: " + PASSWORD);
-        System.out.println("Do you want to change any of the above details?(1.Yes\t2.No)");
+        System.out.print("Do you want to change any of the above details?(1.Yes\t2.No): ");
         Scanner scanner = new Scanner(System.in);
         int choice = scanner.nextInt();
         if(choice == 1) {
+            // Make sure that all the variables are correct.
             changeVariable(scanner);
         }
+        // Connect to the database.
         connect();
     }
 
@@ -47,18 +53,36 @@ public class DatabaseConnection {
             Class.forName(JDBC_DRIVER);
             System.out.println("Connecting to database!");
             connection = DriverManager.getConnection(DB_URL, USER, PASSWORD);
-            SQLScriptRunner.executeSql(connection, new FileInputStream("src/com/ard/oosd/a/sqlscripts/scripts/LastUpdated.sql"));
         }
-        catch (ClassNotFoundException | SQLException | FileNotFoundException e) {
+        catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
-                connection.close();
+                if(connection != null)
+                    connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * @return the last modified time of the mysqldump file
+     */
+    private String dumpFileModifiedTime() {
+        File file = new File("src/com/ard/oosd/a/sqlscripts/scripts/Time-Table-Management-Dump.sql");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
+        return simpleDateFormat.format(file.lastModified());
+    }
+
+    /**
+     * Checks if the update time is older than the dump time.
+     * @param updateTime time of updation of DB
+     * @param dumpTime time of dump of DB
+     * @return true if dump is older than updated time.
+     */
+    private boolean isDumpOld(Date updateTime, Date dumpTime) {
+        return updateTime.after(dumpTime);
     }
 
     /**
@@ -95,5 +119,14 @@ public class DatabaseConnection {
                     break;
             }
         }
+    }
+
+    /**
+     * Adds a listener to the list
+     * @param listener object to add
+     */
+    @Override
+    public void addListener(ListenerInterface listener) {
+        _listeners.add(listener);
     }
 }
