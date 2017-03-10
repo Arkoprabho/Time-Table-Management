@@ -1,8 +1,6 @@
-/**
- * 
- */
 package com.ard.oosd.a.events;
 
+import java.util.Enumeration;
 import java.util.Vector;
 
 /**
@@ -11,7 +9,24 @@ import java.util.Vector;
  *
  */
 public interface SourceInterface {
-	Vector<ListenerInterface> _listeners = new Vector<ListenerInterface>();
+	Vector<ListenerInterface> _listeners = new Vector<>();
+
+	/**
+	 * Adds a listener to the list
+	 * @param listener object to add
+	 */
 	void addListener(ListenerInterface listener);
-	void fireEvent();
+
+    /**
+     * Methods to invoke when the event is fired.
+     */
+    default void fireEvent() {
+        if(!_listeners.isEmpty()) {
+            Enumeration enumeration = _listeners.elements();
+            while (enumeration.hasMoreElements()) {
+                ListenerInterface listenerInterface = (ListenerInterface)enumeration.nextElement();
+                listenerInterface.fireEvent();
+            }
+        }
+    }
 }
