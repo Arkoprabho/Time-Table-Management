@@ -9,5 +9,8 @@ package com.ard.oosd.a.events;
  *
  */
 public interface ListenerInterface {
-	// TODO add necessary methods.
+    /**
+     * Methods to invoke when the event is fired.
+     */
+	void fireEvent();
 }
