@@ -9,6 +9,7 @@ import java.util.Scanner;
  * Created by arko on 10-03-2017.
  */
 public class SQLScriptRunner {
+    DumpSQL dumpSQL = new DumpSQL();
 
     /**
      * Executes the MySQL script
@@ -16,12 +17,11 @@ public class SQLScriptRunner {
      * @param fileInputStream The script file that needs to be executed.
      * @throws SQLException Exception that occurs when and if the query is not processed.
      */
-    static void updateSql(Connection connection, FileInputStream fileInputStream) throws SQLException {
+    void updateSqlScript(Connection connection, FileInputStream fileInputStream) throws SQLException {
 
         Scanner scanner = new Scanner(fileInputStream);
         // The delimiters a SQL script can have. (Lets keep it to ; only. Still have the others just as a safety net)
         scanner.useDelimiter("(;(\r)?\n)|(--\n)");
-        ResultSet resultSet = null;
         try (Statement statement = connection.createStatement()){
             while (scanner.hasNext()) {
                 String line = scanner.next();
@@ -39,6 +39,18 @@ public class SQLScriptRunner {
     }
 
     /**
+     * Updates the table with the given SQL query.
+     * @param connection object to connect to the database
+     * @param tableName the table to query
+     * @param databaseName the database to query
+     * @param queryType type of query
+     * @param columnName column to update
+     * @param value value with which update
+     */
+    void updateSQL(Connection connection, String tableName, String databaseName, String queryType, String columnName, String value) {
+        // TODO prepare a statement to update the table in the database.
+    }
+    /**
      * Returns the time when the table in the database was updated/changed
      * @param connection object to connect to the database
      * @param tableName the table to query
@@ -47,7 +59,7 @@ public class SQLScriptRunner {
      * @return the time updated/created/invalid option
      * @throws SQLException Exception thrown when the query can not be executed.
      */
-    static String changedTime(Connection connection, String tableName, String databaseName, String option) throws SQLException {
+    String changedTime(Connection connection, String tableName, String databaseName, String option) throws SQLException {
         if(option.toLowerCase().matches("created"))
             return createdTime(connection, tableName, databaseName);
         else if (option.toLowerCase().matches("updated"))
@@ -64,7 +76,7 @@ public class SQLScriptRunner {
      * @return the last updated time
      * @throws SQLException Exception when query is not executed.
      */
-    private static String updatedTime(Connection connection, String tableName, String databaseName) throws SQLException {
+    private String updatedTime(Connection connection, String tableName, String databaseName) throws SQLException {
         String updatedTime = "NA";
             try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT UPDATE_TIME FROM information_schema.tables WHERE  TABLE_SCHEMA =? AND TABLE_NAME =?")) {
             preparedStatement.setString(1, databaseName);
@@ -85,7 +97,7 @@ public class SQLScriptRunner {
      * @return the time of creation
      * @throws SQLException Exception when query is not executed.
      */
-    private static String createdTime(Connection connection, String tableName, String databaseName) throws SQLException {
+    private String createdTime(Connection connection, String tableName, String databaseName) throws SQLException {
         String createdTime = "NA";
         try (PreparedStatement preparedStatement = connection.prepareStatement("SELECT CREATE_TIME FROM information_schema.tables WHERE  TABLE_SCHEMA =? AND TABLE_NAME =?")) {
             preparedStatement.setString(1, databaseName);
