@@ -1,22 +1,15 @@
 package com.ard.oosd.a.sqlscripts;
 
-import com.ard.oosd.a.events.ListenerInterface;
-import com.ard.oosd.a.events.SourceInterface;
-
-import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Enumeration;
 import java.util.Scanner;
 
 /**
  * Contains methods related to the connection of the database.
  * Created by arko on 10-03-2017.
  */
-public class DatabaseConnection implements SourceInterface {
+public class DatabaseConnection {
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
     private static String USER = "root";
@@ -64,25 +57,6 @@ public class DatabaseConnection implements SourceInterface {
                 e.printStackTrace();
             }
         }
-    }
-
-    /**
-     * @return the last modified time of the mysqldump file
-     */
-    private String dumpFileModifiedTime() {
-        File file = new File("src/com/ard/oosd/a/sqlscripts/scripts/Time-Table-Management-Dump.sql");
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
-        return simpleDateFormat.format(file.lastModified());
-    }
-
-    /**
-     * Checks if the update time is older than the dump time.
-     * @param updateTime time of updation of DB
-     * @param dumpTime time of dump of DB
-     * @return true if dump is older than updated time.
-     */
-    private boolean isDumpOld(Date updateTime, Date dumpTime) {
-        return updateTime.after(dumpTime);
     }
 
     /**
