@@ -120,13 +120,4 @@ public class DatabaseConnection implements SourceInterface {
             }
         }
     }
-
-    /**
-     * Adds a listener to the list
-     * @param listener object to add
-     */
-    @Override
-    public void addListener(ListenerInterface listener) {
-        _listeners.add(listener);
-    }
 }
