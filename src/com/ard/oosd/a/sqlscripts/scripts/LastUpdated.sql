@@ -1,3 +1,5 @@
+# noinspection SqlResolveForFile
+
 /*
 Checks the last updated time of the database.
 */
