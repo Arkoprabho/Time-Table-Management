@@ -1,8 +1,5 @@
 package com.ard.oosd.a.sqlscripts;
 
-import com.ard.oosd.a.events.ListenerInterface;
-import com.ard.oosd.a.events.SourceInterface;
-
 import java.io.FileInputStream;
 import java.sql.*;
 import java.util.Scanner;
@@ -11,7 +8,7 @@ import java.util.Scanner;
  * Contains methods to execute MySQL scripts from dump files.
  * Created by arko on 10-03-2017.
  */
-public class SQLScriptRunner implements SourceInterface{
+public class SQLScriptRunner {
 
     /**
      * Executes the MySQL script
