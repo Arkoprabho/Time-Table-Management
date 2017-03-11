@@ -100,14 +100,4 @@ public class SQLScriptRunner implements SourceInterface{
         return createdTime;
 
     }
-
-    /**
-     * Adds a listener to the list
-     *
-     * @param listener object to add
-     */
-    @Override
-    public void addListener(ListenerInterface listener) {
-        _listeners.add(listener);
-    }
 }
