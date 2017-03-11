@@ -19,7 +19,7 @@ public class SQLScriptRunner implements SourceInterface{
      * @param fileInputStream The script file that needs to be executed.
      * @throws SQLException Exception that occurs when and if the query is not processed.
      */
-    static void executeSql(Connection connection, FileInputStream fileInputStream) throws SQLException {
+    static void updateSql(Connection connection, FileInputStream fileInputStream) throws SQLException {
 
         Scanner scanner = new Scanner(fileInputStream);
         // The delimiters a SQL script can have. (Lets keep it to ; only. Still have the others just as a safety net)
