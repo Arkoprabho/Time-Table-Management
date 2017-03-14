@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `timetablemanagement` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `timetablemanagement`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win32 (AMD64)
 --
 -- Host: localhost    Database: timetablemanagement
@@ -18,12 +16,26 @@ USE `timetablemanagement`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping events for database 'timetablemanagement'
+-- Table structure for table `abc`
 --
 
+DROP TABLE IF EXISTS `abc`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `abc` (
+  `id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
 --
--- Dumping routines for database 'timetablemanagement'
+-- Dumping data for table `abc`
 --
+
+LOCK TABLES `abc` WRITE;
+/*!40000 ALTER TABLE `abc` DISABLE KEYS */;
+INSERT INTO `abc` VALUES (100);
+/*!40000 ALTER TABLE `abc` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -34,4 +46,4 @@ USE `timetablemanagement`;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-10 16:55:29
+-- Dump completed on 2017-03-14 23:56:45
