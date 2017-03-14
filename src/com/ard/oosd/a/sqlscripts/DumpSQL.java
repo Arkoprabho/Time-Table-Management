@@ -2,7 +2,7 @@ package com.ard.oosd.a.sqlscripts;
 
 import java.io.File;
 import java.io.IOException;
-import java.sql.Connection;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
@@ -39,19 +39,31 @@ public class DumpSQL {
      * Creates a mysqldump of the database.
      * @param userName username of the database.
      * @param password password of the database.
-     * @param tableName name of the table to dump.
+     * @param databaseName name of the database to dump.
      * @throws IOException In case it is unable to execute the command
      * @throws InterruptedException Wait fails
      */
-    void backupDatabase(String userName, String password, String tableName) throws IOException, InterruptedException {
-        String executeCommand = "mysqldump -u "+userName+" -p"+password+"-r Time-Table-Management-Dump.sql";
+    void backupDatabase(String userName, String password, String databaseName) throws IOException, InterruptedException {
+        //NOTE  Make sure mysqldump is added to PATH
+        LOGGER.log(Level.FINEST, "Starting backup");
+        String[] executeCommand = new String[] {"cmd.exe", "/c", "\"C:/Program Files (x86)/MySQL/MySQL Server 5.7/bin/mysqldump.exe\" -u "+userName+" -p"+password+" "+databaseName+" > src/com/ard/oosd/a/sqlscripts/scripts/Time-Table-Management-Dump.sql"};
         Process process = Runtime.getRuntime().exec(executeCommand);
-        int processCompletion = process.waitFor();
-        if(processCompletion == 0)
+        if(process.waitFor() == 0) {
             LOGGER.log(Level.INFO, "Backup success!");
-        else{
+            InputStream inputStream = process.getInputStream();
+            byte[] buffer = new byte[inputStream.available()];
+            inputStream.read(buffer);
+            String out = new String(buffer);
+            System.out.println(out);
+        }
+        else {
+            System.out.println(process.waitFor());
             LOGGER.log(Level.SEVERE, "Backup failed!");
-            System.out.println("BACKUP FAILED!");
+            InputStream errorStream = process.getErrorStream();
+            byte[] buffer = new byte[errorStream.available()];
+            errorStream.read(buffer);
+            String out = new String(buffer);
+            System.out.println(out);
         }
     }
 
