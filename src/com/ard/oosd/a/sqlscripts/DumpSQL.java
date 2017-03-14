@@ -13,18 +13,6 @@ import java.util.logging.Logger;
  * Created by arko on 11-03-2017.
  */
 public class DumpSQL {
-    static Logger LOGGER = null;
-    FileHandler logFile = null;
-
-    public DumpSQL() {
-         LOGGER = Logger.getLogger(Class.class.getName());
-        try {
-            logFile = new FileHandler("log.log");
-            LOGGER.addHandler(logFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
 
     /**
      * @return the last modified time of the mysqldump file
@@ -45,11 +33,9 @@ public class DumpSQL {
      */
     void backupDatabase(String userName, String password, String databaseName) throws IOException, InterruptedException {
         //NOTE  Make sure mysqldump is added to PATH
-        LOGGER.log(Level.FINEST, "Starting backup");
         String[] executeCommand = new String[] {"cmd.exe", "/c", "\"C:/Program Files (x86)/MySQL/MySQL Server 5.7/bin/mysqldump.exe\" -u "+userName+" -p"+password+" "+databaseName+" > src/com/ard/oosd/a/sqlscripts/scripts/Time-Table-Management-Dump.sql"};
         Process process = Runtime.getRuntime().exec(executeCommand);
         if(process.waitFor() == 0) {
-            LOGGER.log(Level.INFO, "Backup success!");
             InputStream inputStream = process.getInputStream();
             byte[] buffer = new byte[inputStream.available()];
             inputStream.read(buffer);
@@ -58,7 +44,6 @@ public class DumpSQL {
         }
         else {
             System.out.println(process.waitFor());
-            LOGGER.log(Level.SEVERE, "Backup failed!");
             InputStream errorStream = process.getErrorStream();
             byte[] buffer = new byte[errorStream.available()];
             errorStream.read(buffer);
@@ -79,9 +64,8 @@ public class DumpSQL {
         Process process = Runtime.getRuntime().exec(executeCommand);
         int processCompletion = process.waitFor();
         if(processCompletion == 0)
-            LOGGER.log(Level.INFO, "Restore success!");
+            System.out.println("RESTORE SUCCESS!");
         else{
-            LOGGER.log(Level.SEVERE, "Restore failed!");
             System.out.println("RESTORE FAILED!");
         }
     }
