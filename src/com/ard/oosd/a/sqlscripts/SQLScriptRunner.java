@@ -17,7 +17,7 @@ public class SQLScriptRunner {
      * @throws SQLException Exception that occurs when and if the query is not processed.
      */
     void updateSqlScript(Connection connection, FileInputStream fileInputStream) throws SQLException {
-        DumpSQL dumpSQL = new DumpSQL();
+        System.out.println("Executing SQL script!");
         Scanner scanner = new Scanner(fileInputStream);
         // The delimiters a SQL script can have. (Lets keep it to ; only. Still have the others just as a safety net)
         scanner.useDelimiter("(;(\r)?\n)|(--\n)");
@@ -35,9 +35,11 @@ public class SQLScriptRunner {
                 }
             }
         }
+        System.out.println("Execution success!");
         // Once the command is executed, create a dump of the file.
         try {
-            dumpSQL.backupDatabase("root", "password", "timetablemanagement");
+            System.out.println("Dumping file!");
+            new DumpSQL().backupDatabase("root", "password", "timetablemanagement");
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
