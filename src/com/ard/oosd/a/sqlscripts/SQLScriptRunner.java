@@ -37,19 +37,6 @@ public class SQLScriptRunner {
             }
         }
     }
-
-    /**
-     * Updates the table with the given SQL query.
-     * @param connection object to connect to the database
-     * @param tableName the table to query
-     * @param databaseName the database to query
-     * @param queryType type of query
-     * @param columnName column to update
-     * @param value value with which update
-     */
-    void updateSQL(Connection connection, String tableName, String databaseName, String queryType, String columnName, String value) {
-        // TODO prepare a statement to update the table in the database.
-    }
     /**
      * Returns the time when the table in the database was updated/changed
      * @param connection object to connect to the database
