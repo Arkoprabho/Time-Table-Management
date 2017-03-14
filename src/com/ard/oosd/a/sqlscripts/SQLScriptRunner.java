@@ -1,6 +1,7 @@
 package com.ard.oosd.a.sqlscripts;
 
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.Scanner;
 
@@ -9,8 +10,6 @@ import java.util.Scanner;
  * Created by arko on 10-03-2017.
  */
 public class SQLScriptRunner {
-    DumpSQL dumpSQL = new DumpSQL();
-
     /**
      * Executes the MySQL script
      * @param connection Connection object that is used to connect to the database.
@@ -18,7 +17,7 @@ public class SQLScriptRunner {
      * @throws SQLException Exception that occurs when and if the query is not processed.
      */
     void updateSqlScript(Connection connection, FileInputStream fileInputStream) throws SQLException {
-
+        DumpSQL dumpSQL = new DumpSQL();
         Scanner scanner = new Scanner(fileInputStream);
         // The delimiters a SQL script can have. (Lets keep it to ; only. Still have the others just as a safety net)
         scanner.useDelimiter("(;(\r)?\n)|(--\n)");
@@ -35,6 +34,12 @@ public class SQLScriptRunner {
                     statement.execute(line);
                 }
             }
+        }
+        // Once the command is executed, create a dump of the file.
+        try {
+            dumpSQL.backupDatabase("root", "password", "timetablemanagement");
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
         }
     }
     /**
