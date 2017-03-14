@@ -11,6 +11,7 @@ import com.ard.oosd.r.WindowMain;
  */
 public class MainClass {
 
+
     /**
      * Perform the initial checks before starting the program.
      * Make sure that the program is ready to be executed.
@@ -24,7 +25,8 @@ public class MainClass {
         2. Is the timetable updated? Compare the update time of the table and the dump file.
          */
         new DatabaseConnection();
-    }
+    }	
+
 
     /**
      * Main method. Starting point of the program.
