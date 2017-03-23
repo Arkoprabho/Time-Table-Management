@@ -39,7 +39,7 @@ public class SQLScriptRunner {
         // Once the command is executed, create a dump of the file.
         try {
             System.out.println("Dumping file!");
-            new DumpSQL().backupDatabase("root", "password", "timetablemanagement");
+            new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
