@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.ard.oosd.a;
 
 import java.util.ArrayList;
@@ -13,41 +10,64 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Arko
  *
  */
-class Professor {
+class Professor implements PeopleInterface{
     // Private fields
     private String professorName = null;
     private List<Subjects> associatedSubject = new ArrayList<>();
-    
+    private TypeOfUser typeOfUser = null;
+    // Inherited members
     /**
-     * Initialize the Professor with the parameters.
-     * @param name
-     * @param subjects
+     * Initialize the Professor with the parameters.\n
+     * @param name name of the professor.
      */
     Professor(String name) {
-	// Set the name of the professors.
-	professorName = name;
-	// Set the associated subjects with the professor.
+	    // Set the name of the professors.
+	    professorName = name;
+	    // Set the associated subjects with the professor.
     }
 
     /**
      * @return the professorname
      */
     public String getProfessorname() {
-	return professorName;
+	    return professorName;
     }
 
     /**
      * @return the associatedSubject
      */
     public List<Subjects> getAssociatedSubject() {
-	return associatedSubject;
+	    return associatedSubject;
     }
 
     /**
      * @param associatedSubject the associatedSubject to set
      */
     public void setAssociatedSubject(List<Subjects> associatedSubject) {
-	this.associatedSubject = associatedSubject;
+	    this.associatedSubject = associatedSubject;
     }
 
+    /**
+     * Sets the type of user.
+     */
+    @Override
+    public void setTypeOfUser() {
+        typeOfUser = TypeOfUser.Teacher;
+    }
+
+    /**
+     * @return the type of user.
+     */
+    @Override
+    public TypeOfUser getTypeOfUser() {
+        return typeOfUser;
+    }
+
+    /**
+     * Logs the user into the applciation.
+     */
+    @Override
+    public void login() {
+
+    }
 }
