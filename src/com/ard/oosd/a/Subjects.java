@@ -1,6 +1,7 @@
 package com.ard.oosd.a;
 
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Class that holds the subjects associated with a professor.
@@ -8,8 +9,8 @@ import java.util.List;
  */
 class Subjects {
     // Each subject needs to have a subject code, name and credit.
-    private int credit, subjectCode;
-    private String subjectName;
+    private int credit;
+    private String subjectName, subjectCode;
 
 	/**
 	 * * Initializes a new instance of a subject.\m
@@ -17,7 +18,7 @@ class Subjects {
 	 * @param name name of the subject.
 	 * @param code subject code.
 	 */
-    public Subjects(String name, int code, int credit) {
+    public Subjects(String name, String code, int credit) {
 		subjectCode = code;
 		this.credit = credit;
 		subjectName = name;
@@ -41,16 +42,16 @@ class Subjects {
         final int prime = 31;
         int result = 1;
         result = prime * result + credit;
-        result = prime * result + subjectCode;
+        result = prime * result + subjectCode.hashCode();
         result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        Subjects other = (Subjects) obj;
-        if (subjectCode != other.subjectCode)
+        if(obj == null)
             return false;
-        return true;
+        Subjects other = (Subjects) obj;
+        return Objects.equals(subjectCode, other.subjectCode);
     }
 }
