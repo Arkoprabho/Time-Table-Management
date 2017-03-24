@@ -41,6 +41,27 @@ LOCK TABLES `department` WRITE;
 UNLOCK TABLES;
 
 --
+-- Table structure for table `faculty`
+--
+
+DROP TABLE IF EXISTS `faculty`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `faculty` (
+  `Name` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `faculty`
+--
+
+LOCK TABLES `faculty` WRITE;
+/*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
+/*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `location`
 --
 
@@ -80,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-25  0:38:00
+-- Dump completed on 2017-03-25  1:01:05
