@@ -25,9 +25,7 @@ public class Location {
 
     @Override
     public int hashCode() {
-        int hash = 29;
-        hash = 92 * hash + (this.roomName != null ? this.roomName.toLowerCase().hashCode() : 0);
-        return hash;
+        return (92 * 29 + (this.roomName != null ? this.roomName.toLowerCase().hashCode() : 0));
 
     }
 
