@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `timetablemanagement` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `timetablemanagement`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win32 (AMD64)
 --
 -- Host: localhost    Database: timetablemanagement
@@ -112,6 +114,14 @@ LOCK TABLES `subjects` WRITE;
 /*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
 /*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
 UNLOCK TABLES;
+
+--
+-- Dumping events for database 'timetablemanagement'
+--
+
+--
+-- Dumping routines for database 'timetablemanagement'
+--
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -122,4 +132,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-25  7:04:08
+-- Dump completed on 2017-03-25  5:14:04
