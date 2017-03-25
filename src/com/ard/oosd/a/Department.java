@@ -15,20 +15,20 @@ import java.util.List;
  */
 class Department {
     /**
-     * List of professors associated with the department.
+     * List of professorArrayList associated with the department.
      */
-    private List<Professor> professors = new ArrayList<>();
+    private List<Professor> professorArrayList = new ArrayList<>();
 
     private String name;
 
     /**
      * Initializes a new instance of Department.
      * @param name name of the department
-     * @param professors list of professors associated with this department.
+     * @param professors list of professorArrayList associated with this department.
      */
     public Department(String name, ArrayList<Professor> professors) {
 	    this.name = name;
-	    this.professors = professors;
+	    this.professorArrayList = professors;
 
 	    writeToDatabase();
     }
@@ -37,19 +37,19 @@ class Department {
      * Writes the details of the department to database.
      */
     private void writeToDatabase() {
-        PreparedStatement preparedStatement = null;
+        PreparedStatement databasePreparedStatement = null;
         try  {
-            preparedStatement = DatabaseConnection.connection.prepareStatement("INSERT INTO timetablemanagement.department (DepartmentHashCode, Name) VALUES (?, ?)");
+            databasePreparedStatement = DatabaseConnection.connection.prepareStatement("INSERT INTO timetablemanagement.department (DepartmentHashCode, Name) VALUES (?, ?)");
             // Set the values.
             // This is for the department.
-            preparedStatement.setInt(1, this.hashCode());
-            preparedStatement.setString(2, getName());
+            databasePreparedStatement.setInt(1, this.hashCode());
+            databasePreparedStatement.setString(2, getName());
             // Execute.
-            preparedStatement.execute();
+            databasePreparedStatement.execute();
             // Got to update the faculty table as well.
-            for (Professor professor : professors) {
+            for (Professor professor : professorArrayList) {
                 // This is for the faculty
-                preparedStatement = DatabaseConnection.connection.prepareStatement("INSERT INTO timetablemanagement.faculty (Name, DepartmentCode, Type, SubjectCode) VALUES (?, ?, 'Teacher', ?)");
+                databasePreparedStatement = DatabaseConnection.connection.prepareStatement("INSERT INTO timetablemanagement.faculty (Name, DepartmentCode, Type, SubjectCode) VALUES (?, ?, 'Teacher', ?)");
                 // Got to update the subject table as well.
                 for (Subjects subject : professor.getAssociatedSubject()) {
                     try(PreparedStatement subjectStatement = DatabaseConnection.connection.prepareStatement("INSERT INTO timetablemanagement.subjects (SubjectCode, Name, Credit) VALUES (?, ?, ?)")) {
@@ -60,13 +60,13 @@ class Department {
                         subjectStatement.setInt(3, subject.getCredit());
 
                         // Set the professor query.
-                        preparedStatement.setString(1, professor.getProfessorname());
-                        preparedStatement.setInt(2, this.hashCode());
-                        preparedStatement.setString(3, subject.getSubjectCode());
+                        databasePreparedStatement.setString(1, professor.getProfessorname());
+                        databasePreparedStatement.setInt(2, this.hashCode());
+                        databasePreparedStatement.setString(3, subject.getSubjectCode());
 
                         // Execute the 2 queries.
                         // There will be a new entry in the faculty table for each subject that he/she teaches.
-                        preparedStatement.execute();
+                        databasePreparedStatement.execute();
                         subjectStatement.execute();
                     }
                     catch (SQLException e) {
@@ -86,8 +86,8 @@ class Department {
         }
         finally {
             try {
-                if (preparedStatement != null)
-                    preparedStatement.close();
+                if (databasePreparedStatement != null)
+                    databasePreparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -102,10 +102,20 @@ class Department {
     }
 
     /**
-     * @return the professors associated.
+     * @return the professorArrayList associated.
      */
-    public List<Professor> getProfessors() {
-	    return professors;
+    public List<Professor> getProfessorArrayList() {
+        try {
+            Statement professorStatement = DatabaseConnection.connection.createStatement();
+            // Select all the professors that have the department code as that of this object.
+            ResultSet professorResultSet = professorStatement.executeQuery("SELECT Name FROM timetablemanagement.faculty WHERE DepartmentCode ="+this.hashCode());
+            while (professorResultSet.next()) {
+                professorArrayList.add(new Professor(professorResultSet.getString("Name")));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return professorArrayList;
     }
 
     @Override
