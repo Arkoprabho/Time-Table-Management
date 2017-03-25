@@ -85,30 +85,6 @@ LOCK TABLES `location` WRITE;
 UNLOCK TABLES;
 
 --
--- Table structure for table `subjects`
---
-
-DROP TABLE IF EXISTS `subjects`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `subjects` (
-  `SubjectCode` varchar(45) NOT NULL,
-  `Name` varchar(45) NOT NULL,
-  `Credit` int(11) NOT NULL,
-  PRIMARY KEY (`SubjectCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `subjects`
---
-
-LOCK TABLES `subjects` WRITE;
-/*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-/*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
 -- Dumping events for database 'timetablemanagement'
 --
 
@@ -125,4 +101,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-25  1:06:29
+-- Dump completed on 2017-03-25  1:01:05
