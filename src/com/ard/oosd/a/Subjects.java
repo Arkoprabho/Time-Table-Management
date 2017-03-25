@@ -24,21 +24,21 @@ class Subjects {
     /**
      * @return the credit of the subject associated with the current object.
      */
-    public int getCredit() {
+    int getCredit() {
         return credit;
     }
 
     /**
      * @return the name of the subject associated with the current object.
      */
-    public String getSubjectName() {
+    String getSubjectName() {
         return subjectName;
     }
 
     /**
      * @return the code of the subject associated with the current object.
      */
-    public String getSubjectCode() {
+    String getSubjectCode() {
         return subjectCode;
     }
 }
