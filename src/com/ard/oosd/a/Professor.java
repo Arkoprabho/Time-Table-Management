@@ -1,7 +1,9 @@
 package com.ard.oosd.a;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Contains details of the professor.
@@ -13,7 +15,7 @@ class Professor implements PeopleInterface{
     private String professorName = null;
     private List<Subjects> associatedSubject = new ArrayList<>();
     private TypeOfUser typeOfUser = null;
-    
+    // Inherited members
     /**
      * Initialize the Professor with the parameters.\n
      * @param name name of the professor.
@@ -27,14 +29,14 @@ class Professor implements PeopleInterface{
     /**
      * @return the professorname
      */
-    String getProfessorname() {
+    public String getProfessorname() {
 	    return professorName;
     }
 
     /**
      * @return the associatedSubject
      */
-    List<Subjects> getAssociatedSubject() {
+    public List<Subjects> getAssociatedSubject() {
 	    return associatedSubject;
     }
 
