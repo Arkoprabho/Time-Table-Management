@@ -1,8 +1,5 @@
 package com.ard.oosd.a;
 
-import java.util.List;
-import java.util.Objects;
-
 /**
  * Class that holds the subjects associated with a professor.
  * @author Arko
