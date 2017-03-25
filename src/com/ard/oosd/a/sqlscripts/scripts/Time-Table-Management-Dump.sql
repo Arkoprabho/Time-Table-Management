@@ -48,14 +48,7 @@ DROP TABLE IF EXISTS `faculty`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `faculty` (
-  `Name` varchar(45) NOT NULL,
-  `DepartmentCode` int(11) NOT NULL,
-  `SubjectCode` varchar(45) NOT NULL,
-  `Type` enum('Teacher','LabAssitant','Administration','Research','Others') NOT NULL,
-  KEY `DepartmentCode_idx` (`DepartmentCode`),
-  KEY `SubjectCode_idx` (`SubjectCode`),
-  CONSTRAINT `DepartmentCode` FOREIGN KEY (`DepartmentCode`) REFERENCES `department` (`DepartmentHashCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `SubjectCode` FOREIGN KEY (`SubjectCode`) REFERENCES `subjects` (`SubjectCode`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  `Name` varchar(45) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -132,4 +125,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-25  5:14:04
+-- Dump completed on 2017-03-25  1:06:29
