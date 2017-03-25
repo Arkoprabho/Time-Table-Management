@@ -25,27 +25,6 @@ class Subjects {
     }
 
     /**
-     * @return the credit of the subject associated with the current object.
-     */
-    public int getCredit() {
-        return credit;
-    }
-
-    /**
-     * @return the name of the subject associated with the current object.
-     */
-    public String getSubjectName() {
-        return subjectName;
-    }
-
-    /**
-     * @return the code of the subject associated with the current object.
-     */
-    public String getSubjectCode() {
-        return subjectCode;
-    }
-
-    /**
      * Check if the subject has the same code as any other subject in the list.
      * @param subjectList the list of subjects.
      * @return checks if the subject already exists in the list.
