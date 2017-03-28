@@ -484,12 +484,12 @@ public class WindowMain {
 		frame.getContentPane().add(selectionpanel);
 		selectionpanel.setLayout(null);
 		
-		homeicon = new JLabel(new ImageIcon("resources/images/homeic_close.png"));
+		homeicon = new JLabel(new ImageIcon("resources/images/home.png"));
 		homeicon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/home.jpg"));
+				JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/homep.jpg"));
 				lblHomeimage.setBounds(104, 94, 1256, 645);
 				homepanel.add(lblHomeimage, "homepanel");
 				homepanel.setVisible(true);
@@ -505,22 +505,22 @@ public class WindowMain {
 			}
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				homeicon.setIcon(new ImageIcon("resources/images/homeic_Open.png"));
+				homeicon.setIcon(new ImageIcon("resources/images/homehover.png"));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				homeicon.setIcon(new ImageIcon("resources/images/homeic_close.png"));
+				homeicon.setIcon(new ImageIcon("resources/images/home.png"));
 			}
 		});
-		homeicon.setBounds(10, 11, 75, 78);
+		homeicon.setBounds(10, 10, 75, 78);
 		selectionpanel.add(homeicon);
 		
-		JLabel lblAbout = new JLabel("ABOUT");
+		JLabel lblAbout = new JLabel(new ImageIcon("resources/images/about.png"));
 		lblAbout.setForeground(Color.WHITE);
 		lblAbout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				 JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/about.jpg"));
+				 JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/aboutpage.jpg"));
 				lblHomeimage.setBounds(104, 94, 1256, 645);
 				aboutpanel.add(lblHomeimage, "lblHomeimage");
 				homepanel.setVisible(false);
@@ -534,11 +534,19 @@ public class WindowMain {
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblAbout.setIcon(new ImageIcon("resources/images/abouthover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblAbout.setIcon(new ImageIcon("resources/images/about.png"));
+			}
 		});
-		lblAbout.setBounds(21, 340, 46, 14);
+		lblAbout.setBounds(10, 450, 75, 78);
 		selectionpanel.add(lblAbout);
 		
-		JLabel lblStudent = new JLabel("Student");
+		JLabel lblStudent = new JLabel(new ImageIcon("resources/images/student.png"));
 		lblStudent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -553,12 +561,20 @@ public class WindowMain {
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblStudent.setIcon(new ImageIcon("resources/images/studenthover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblStudent.setIcon(new ImageIcon("resources/images/student.png"));
+			}
 		});
 		lblStudent.setForeground(Color.WHITE);
-		lblStudent.setBounds(21, 145, 46, 14);
+		lblStudent.setBounds(10, 120, 75, 78);
 		selectionpanel.add(lblStudent);
 		
-		JLabel lblTeacher = new JLabel("Teacher");
+		JLabel lblTeacher = new JLabel(new ImageIcon("resources/images/teacher.png"));
 		lblTeacher.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -573,12 +589,20 @@ public class WindowMain {
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblTeacher.setIcon(new ImageIcon("resources/images/teacherhover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblTeacher.setIcon(new ImageIcon("resources/images/teacher.png"));
+			}
 		});
 		lblTeacher.setForeground(Color.WHITE);
-		lblTeacher.setBounds(21, 217, 46, 14);
+		lblTeacher.setBounds(10, 230, 75, 78);
 		selectionpanel.add(lblTeacher);
 		
-		JLabel lblAdmin = new JLabel("Admin");
+		JLabel lblAdmin = new JLabel(new ImageIcon("resources/images/admin.png"));
 		lblAdmin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -594,16 +618,35 @@ public class WindowMain {
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
 			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblAdmin.setIcon(new ImageIcon("resources/images/adminhover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblAdmin.setIcon(new ImageIcon("resources/images/admin.png"));
+			}
 		});
 		lblAdmin.setForeground(Color.WHITE);
-		lblAdmin.setBounds(21, 275, 46, 14);
+		lblAdmin.setBounds(10, 340, 75, 78);
 		selectionpanel.add(lblAdmin);
 		
 		//top panel
 		panel = new JPanel();
-		panel.setBackground(Color.WHITE);
-		panel.setBounds(104, 0, 1256, 96);
+		panel.setBackground(new Color(255, 153, 0));
+		panel.setBounds(104, 0, 1256, 98);
 		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		
+		//lable for app icon image in top panel
+		JLabel lblNewLabel = new JLabel(new ImageIcon("resources/images/app_icon.png"));
+		lblNewLabel.setBounds(10, 11, 122, 74);
+		panel.add(lblNewLabel);
+
+		//label for name of app in top panel
+		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("resources/images/appname.png"));
+		lblNewLabel_1.setBounds(147, 11, 1000, 74);
+		panel.add(lblNewLabel_1);
 		
 	}
 }
