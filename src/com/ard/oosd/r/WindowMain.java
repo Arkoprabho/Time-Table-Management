@@ -15,6 +15,8 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import java.awt.Color;
+import java.awt.Cursor;
+
 import javax.swing.border.BevelBorder;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
@@ -97,6 +99,7 @@ public class WindowMain {
 			
 						//add generate button to admin panel
 						JLabel lblGenerateTimeTable = new JLabel("Generate time table");
+						lblGenerateTimeTable.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblGenerateTimeTable.setHorizontalAlignment(SwingConstants.CENTER);
 						lblGenerateTimeTable.setFont(new Font("Tahoma", Font.PLAIN, 17));
 						lblGenerateTimeTable.setForeground(Color.WHITE);
@@ -105,6 +108,7 @@ public class WindowMain {
 						
 						//add viewcomplete time table button to admin panel
 						JLabel lblViewCompleteTime_1 = new JLabel("View complete time table");
+						lblViewCompleteTime_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblViewCompleteTime_1.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
@@ -127,6 +131,7 @@ public class WindowMain {
 						
 						//add view personal time table to admin panel
 						JLabel lblViewPersonalTime = new JLabel("View Personal time table");
+						lblViewPersonalTime.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblViewPersonalTime.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
@@ -149,6 +154,7 @@ public class WindowMain {
 						
 						//set image as back on the admin panel
 						JLabel lblback_2 = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblback_2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblback_2.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
@@ -168,6 +174,7 @@ public class WindowMain {
 						adminpanel.add(lblback_2);
 						
 						JLabel logout = new JLabel("Logout");
+						logout.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						logout.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
@@ -204,6 +211,7 @@ public class WindowMain {
 						completetimetablebranch.add(lblChooseYourBranch);
 						
 						JLabel lblCSE = new JLabel("CSE");
+						lblCSE.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblCSE.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
@@ -227,6 +235,7 @@ public class WindowMain {
 						completetimetablebranch.add(lblCSE);
 						
 						JLabel lblIt = new JLabel("IT");
+						lblIt.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblIt.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
@@ -249,6 +258,7 @@ public class WindowMain {
 						completetimetablebranch.add(lblIt);
 						
 						JLabel lblBack = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblBack.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent e) {
@@ -283,6 +293,7 @@ public class WindowMain {
 						completetimetableyear.add(lblChooseYourYear);
 						
 						JLabel _1styear = new JLabel("1st year");
+						_1styear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_1styear.setHorizontalAlignment(SwingConstants.CENTER);
 						_1styear.setFont(new Font("Tahoma", Font.PLAIN, 17));
 						_1styear.setForeground(Color.WHITE);
@@ -290,6 +301,7 @@ public class WindowMain {
 						completetimetableyear.add(_1styear);
 						
 						JLabel _2ndyear = new JLabel("2nd year");
+						_2ndyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_2ndyear.setForeground(Color.WHITE);
 						_2ndyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
 						_2ndyear.setHorizontalAlignment(SwingConstants.CENTER);
@@ -297,6 +309,7 @@ public class WindowMain {
 						completetimetableyear.add(_2ndyear);
 						
 						JLabel _3rdyear = new JLabel("3rd year");
+						_3rdyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_3rdyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
 						_3rdyear.setForeground(Color.WHITE);
 						_3rdyear.setHorizontalAlignment(SwingConstants.CENTER);
@@ -304,6 +317,7 @@ public class WindowMain {
 						completetimetableyear.add(_3rdyear);
 						
 						JLabel _4thyear = new JLabel("4th year");
+						_4thyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_4thyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
 						_4thyear.setForeground(Color.WHITE);
 						_4thyear.setHorizontalAlignment(SwingConstants.CENTER);
@@ -311,6 +325,7 @@ public class WindowMain {
 						completetimetableyear.add(_4thyear);
 						
 						JLabel lblback_1 = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblback_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblback_1.addMouseListener(new MouseAdapter() {
 							@Override
 							public void mouseClicked(MouseEvent arg0) {
@@ -344,6 +359,7 @@ public class WindowMain {
 				studentpanel.setLayout(null);
 				
 				JLabel Login = new JLabel("LOGIN");
+				Login.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				Login.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -365,6 +381,7 @@ public class WindowMain {
 				studentpanel.add(Login);
 				
 				JLabel lblViewCompleteTime = new JLabel("View Complete time table");
+				lblViewCompleteTime.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				lblViewCompleteTime.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent arg0) {
@@ -406,6 +423,7 @@ public class WindowMain {
 				passwordfield.setVisible(false);
 				
 				JLabel lblSubmit_1 = new JLabel("Submit");
+				lblSubmit_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				lblSubmit_1.addMouseListener(new MouseAdapter() {
 					@Override
 					public void mouseClicked(MouseEvent e) {
@@ -438,6 +456,7 @@ public class WindowMain {
 				rollid_panel.setLayout(null);
 			
 				JLabel lblSubmit = new JLabel("SUBMIT");
+				lblSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
 				lblSubmit.setFont(new Font("Tahoma", Font.PLAIN, 17));
 				lblSubmit.setForeground(Color.WHITE);
 				lblSubmit.setBounds(507, 328, 134, 55);
@@ -456,6 +475,7 @@ public class WindowMain {
 					rollfield.setColumns(10);
 					
 					JLabel lblback_3 = new JLabel(new ImageIcon("resources/images/Back.png"));
+					lblback_3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					lblback_3.addMouseListener(new MouseAdapter() {
 						@Override
 						public void mouseClicked(MouseEvent e) {
@@ -485,6 +505,8 @@ public class WindowMain {
 		selectionpanel.setLayout(null);
 		
 		homeicon = new JLabel(new ImageIcon("resources/images/home.png"));
+		homeicon.setToolTipText("HOME");
+		homeicon.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		homeicon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -516,6 +538,8 @@ public class WindowMain {
 		selectionpanel.add(homeicon);
 		
 		JLabel lblAbout = new JLabel(new ImageIcon("resources/images/about.png"));
+		lblAbout.setToolTipText("ABOUT");
+		lblAbout.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblAbout.setForeground(Color.WHITE);
 		lblAbout.addMouseListener(new MouseAdapter() {
 			@Override
@@ -547,6 +571,8 @@ public class WindowMain {
 		selectionpanel.add(lblAbout);
 		
 		JLabel lblStudent = new JLabel(new ImageIcon("resources/images/student.png"));
+		lblStudent.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblStudent.setToolTipText("STUDENT");
 		lblStudent.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -575,6 +601,8 @@ public class WindowMain {
 		selectionpanel.add(lblStudent);
 		
 		JLabel lblTeacher = new JLabel(new ImageIcon("resources/images/teacher.png"));
+		lblTeacher.setToolTipText("TEACHER");
+		lblTeacher.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblTeacher.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
@@ -603,6 +631,8 @@ public class WindowMain {
 		selectionpanel.add(lblTeacher);
 		
 		JLabel lblAdmin = new JLabel(new ImageIcon("resources/images/admin.png"));
+		lblAdmin.setToolTipText("ADMIN");
+		lblAdmin.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblAdmin.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
