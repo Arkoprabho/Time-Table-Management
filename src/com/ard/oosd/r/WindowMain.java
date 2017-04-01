@@ -712,7 +712,7 @@ public class WindowMain {
 		frame.getContentPane().add(panel_1);
 		panel_1.setLayout(null);
 		
-		JLabel lblClose = new JLabel("close");
+		JLabel lblClose = new JLabel(new ImageIcon("resources/images/closebutton.png"));
 		lblClose.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblClose.setForeground(new Color(255, 255, 255));
 		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
