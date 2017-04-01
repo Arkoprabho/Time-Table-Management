@@ -94,6 +94,7 @@ public class WindowMain {
 						homepanel.setVisible(true);
 						
 						JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/homep.jpg"));
+						lblHomeimage.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 						lblHomeimage.setBackground(new Color(0, 51, 153));
 						lblHomeimage.setBounds(104, 94, 1256, 645);
 						homepanel.add(lblHomeimage, "homepanel");
@@ -110,7 +111,7 @@ public class WindowMain {
 						JLabel lblGenerateTimeTable = new JLabel("Generate time table");
 						lblGenerateTimeTable.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblGenerateTimeTable.setHorizontalAlignment(SwingConstants.CENTER);
-						lblGenerateTimeTable.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblGenerateTimeTable.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						lblGenerateTimeTable.setForeground(Color.WHITE);
 						lblGenerateTimeTable.setBounds(421, 361, 207, 72);
 						adminpanel.add(lblGenerateTimeTable);
@@ -133,7 +134,7 @@ public class WindowMain {
 								adminpanel.setVisible(false);
 							}
 						});
-						lblViewCompleteTime_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblViewCompleteTime_1.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						lblViewCompleteTime_1.setForeground(Color.WHITE);
 						lblViewCompleteTime_1.setBounds(421, 253, 236, 66);
 						adminpanel.add(lblViewCompleteTime_1);
@@ -156,13 +157,14 @@ public class WindowMain {
 								completetimetableyear.setVisible(false);
 							}
 						});
-						lblViewPersonalTime.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblViewPersonalTime.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						lblViewPersonalTime.setForeground(Color.WHITE);
 						lblViewPersonalTime.setBounds(421, 146, 254, 53);
 						adminpanel.add(lblViewPersonalTime);
 						
 						//set image as back on the admin panel
 						JLabel lblback_2 = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblback_2.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 						lblback_2.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblback_2.addMouseListener(new MouseAdapter() {
 							@Override
@@ -201,7 +203,7 @@ public class WindowMain {
 							}
 						});
 						logout.setHorizontalAlignment(SwingConstants.CENTER);
-						logout.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						logout.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						logout.setForeground(Color.WHITE);
 						logout.setBounds(466, 516, 111, 29);
 						adminpanel.add(logout);
@@ -215,9 +217,10 @@ public class WindowMain {
 						completetimetablebranch.setVisible(false);
 						
 						JLabel lblChooseYourBranch = new JLabel("Choose your branch:");
-						lblChooseYourBranch.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblChooseYourBranch.setHorizontalAlignment(SwingConstants.CENTER);
+						lblChooseYourBranch.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						lblChooseYourBranch.setForeground(Color.WHITE);
-						lblChooseYourBranch.setBounds(510, 156, 152, 52);
+						lblChooseYourBranch.setBounds(479, 156, 216, 52);
 						completetimetablebranch.add(lblChooseYourBranch);
 						
 						JLabel lblCSE = new JLabel("CSE");
@@ -239,7 +242,7 @@ public class WindowMain {
 						});
 						lblCSE.setHorizontalAlignment(SwingConstants.CENTER);
 						lblCSE.setBackground(Color.BLACK);
-						lblCSE.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblCSE.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						lblCSE.setForeground(Color.WHITE);
 						lblCSE.setBounds(419, 285, 108, 27);
 						completetimetablebranch.add(lblCSE);
@@ -262,12 +265,13 @@ public class WindowMain {
 							}
 						});
 						lblIt.setHorizontalAlignment(SwingConstants.CENTER);
-						lblIt.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblIt.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						lblIt.setForeground(Color.WHITE);
 						lblIt.setBounds(652, 285, 120, 27);
 						completetimetablebranch.add(lblIt);
 						
 						JLabel lblBack = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblBack.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 						lblBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblBack.addMouseListener(new MouseAdapter() {
 							@Override
@@ -297,7 +301,7 @@ public class WindowMain {
 						completetimetableyear.setVisible(false);
 						
 						JLabel lblChooseYourYear = new JLabel("Choose your year:");
-						lblChooseYourYear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblChooseYourYear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						lblChooseYourYear.setForeground(Color.WHITE);
 						lblChooseYourYear.setHorizontalAlignment(SwingConstants.CENTER);
 						lblChooseYourYear.setBounds(474, 137, 176, 56);
@@ -306,7 +310,7 @@ public class WindowMain {
 						JLabel _1styear = new JLabel("1st year");
 						_1styear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_1styear.setHorizontalAlignment(SwingConstants.CENTER);
-						_1styear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_1styear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						_1styear.setForeground(Color.WHITE);
 						_1styear.setBounds(315, 275, 100, 34);
 						completetimetableyear.add(_1styear);
@@ -314,14 +318,14 @@ public class WindowMain {
 						JLabel _2ndyear = new JLabel("2nd year");
 						_2ndyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_2ndyear.setForeground(Color.WHITE);
-						_2ndyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_2ndyear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						_2ndyear.setHorizontalAlignment(SwingConstants.CENTER);
 						_2ndyear.setBounds(453, 279, 100, 27);
 						completetimetableyear.add(_2ndyear);
 						
 						JLabel _3rdyear = new JLabel("3rd year");
 						_3rdyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
-						_3rdyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_3rdyear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						_3rdyear.setForeground(Color.WHITE);
 						_3rdyear.setHorizontalAlignment(SwingConstants.CENTER);
 						_3rdyear.setBounds(599, 275, 71, 34);
@@ -329,13 +333,14 @@ public class WindowMain {
 						
 						JLabel _4thyear = new JLabel("4th year");
 						_4thyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
-						_4thyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_4thyear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						_4thyear.setForeground(Color.WHITE);
 						_4thyear.setHorizontalAlignment(SwingConstants.CENTER);
 						_4thyear.setBounds(718, 279, 89, 30);
 						completetimetableyear.add(_4thyear);
 						
 						JLabel lblback_1 = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblback_1.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 						lblback_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						lblback_1.addMouseListener(new MouseAdapter() {
 							@Override
@@ -388,7 +393,7 @@ public class WindowMain {
 						completetimetableyear.setVisible(false);
 					}
 				});
-				Login.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				Login.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 				Login.setForeground(Color.WHITE);
 				Login.setBounds(607, 212, 131, 34);
 				studentpanel.add(Login);
@@ -410,7 +415,7 @@ public class WindowMain {
 						adminpanel.setVisible(false);
 					}
 				});
-				lblViewCompleteTime.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblViewCompleteTime.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 				lblViewCompleteTime.setForeground(Color.WHITE);
 				lblViewCompleteTime.setBounds(540, 306, 222, 66);
 				studentpanel.add(lblViewCompleteTime);
@@ -424,13 +429,14 @@ public class WindowMain {
 				adminloginpanel.setVisible(false);
 				
 				JLabel lblEnterYourPassword = new JLabel("Enter your password");
-				lblEnterYourPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblEnterYourPassword.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 				lblEnterYourPassword.setForeground(Color.WHITE);
 				lblEnterYourPassword.setBounds(168, 232, 219, 52);
 				adminloginpanel.add(lblEnterYourPassword);
 				
 				//textbox to enter password
 				passwordfield = new JTextField();
+				passwordfield.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 				passwordfield.setBounds(500, 237, 171, 36);
 				adminloginpanel.add(passwordfield);
 				passwordfield.setColumns(10);
@@ -457,7 +463,7 @@ public class WindowMain {
 						}
 					}
 				});
-				lblSubmit_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblSubmit_1.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 				lblSubmit_1.setForeground(Color.WHITE);
 				lblSubmit_1.setBounds(552, 376, 102, 44);
 				adminloginpanel.add(lblSubmit_1);
@@ -472,24 +478,26 @@ public class WindowMain {
 			
 				JLabel lblSubmit = new JLabel("SUBMIT");
 				lblSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
-				lblSubmit.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblSubmit.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 				lblSubmit.setForeground(Color.WHITE);
 				lblSubmit.setBounds(507, 328, 134, 55);
 				rollid_panel.add(lblSubmit);
 				
 				JLabel lblEnterYourId = new JLabel("Enter your id or roll no:");
-				lblEnterYourId.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblEnterYourId.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 				lblEnterYourId.setForeground(Color.WHITE);
 				lblEnterYourId.setBounds(266, 248, 204, 20);
 				rollid_panel.add(lblEnterYourId);
 				
 					
 					rollfield = new JTextField();
+					rollfield.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 					rollfield.setBounds(491, 248, 86, 20);
 					rollid_panel.add(rollfield);
 					rollfield.setColumns(10);
 					
 					JLabel lblback_3 = new JLabel(new ImageIcon("resources/images/Back.png"));
+					lblback_3.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 					lblback_3.setCursor(new Cursor(Cursor.HAND_CURSOR));
 					lblback_3.addMouseListener(new MouseAdapter() {
 						@Override
@@ -521,6 +529,7 @@ public class WindowMain {
 		selectionpanel.setVisible(true);
 		
 		homeicon = new JLabel(new ImageIcon("resources/images/home.png"));
+		homeicon.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		homeicon.setToolTipText("HOME");
 		homeicon.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		homeicon.addMouseListener(new MouseAdapter() {
@@ -550,6 +559,7 @@ public class WindowMain {
 		selectionpanel.add(homeicon);
 		
 		JLabel lblAbout = new JLabel(new ImageIcon("resources/images/about.png"));
+		lblAbout.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblAbout.setToolTipText("ABOUT");
 		lblAbout.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblAbout.setForeground(Color.WHITE);
@@ -583,6 +593,7 @@ public class WindowMain {
 		selectionpanel.add(lblAbout);
 		
 		JLabel lblStudent = new JLabel(new ImageIcon("resources/images/student.png"));
+		lblStudent.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblStudent.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblStudent.setToolTipText("STUDENT");
 		lblStudent.addMouseListener(new MouseAdapter() {
@@ -613,6 +624,7 @@ public class WindowMain {
 		selectionpanel.add(lblStudent);
 		
 		JLabel lblTeacher = new JLabel(new ImageIcon("resources/images/teacher.png"));
+		lblTeacher.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblTeacher.setToolTipText("TEACHER");
 		lblTeacher.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblTeacher.addMouseListener(new MouseAdapter() {
@@ -643,6 +655,7 @@ public class WindowMain {
 		selectionpanel.add(lblTeacher);
 		
 		JLabel lblAdmin = new JLabel(new ImageIcon("resources/images/admin.png"));
+		lblAdmin.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblAdmin.setToolTipText("ADMIN");
 		lblAdmin.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblAdmin.addMouseListener(new MouseAdapter() {
@@ -683,11 +696,13 @@ public class WindowMain {
 		
 		//lable for app icon image in top panel
 		JLabel lblNewLabel = new JLabel(new ImageIcon("resources/images/app_icon.png"));
+		lblNewLabel.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblNewLabel.setBounds(10, 11, 122, 74);
 		panel.add(lblNewLabel);
 
 		//label for name of app in top panel
 		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("resources/images/appname.png"));
+		lblNewLabel_1.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblNewLabel_1.setBounds(147, 11, 1000, 74);
 		panel.add(lblNewLabel_1);
 		
@@ -698,14 +713,16 @@ public class WindowMain {
 		panel_1.setLayout(null);
 		
 		JLabel lblClose = new JLabel("close");
+		lblClose.setFont(new Font("Nunito Sans", Font.PLAIN, 11));
 		lblClose.setForeground(new Color(255, 255, 255));
+		lblClose.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		lblClose.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				frame.dispose();
 			}
 		});
-		lblClose.setBounds(1310, 11, 46, 14);
+		lblClose.setBounds(1305, 0, 35, 32);
 		panel_1.add(lblClose);
 		
 	}
