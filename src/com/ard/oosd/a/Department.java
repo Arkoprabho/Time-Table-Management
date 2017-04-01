@@ -118,6 +118,10 @@ class Department {
         return professorArrayList;
     }
 
+    /**
+     * Acts as the department code for the current department.
+     * @return the hash code of the department.
+     */
     @Override
     public int hashCode() {
         return (92 * 29 + (this.name != null ? this.name.toLowerCase().hashCode() : 0));
