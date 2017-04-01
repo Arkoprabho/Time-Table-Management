@@ -1,9 +1,5 @@
 package com.ard.oosd.a;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
 /**
  * @author Arko<br>
  * Contains the basic functionalities of a student
