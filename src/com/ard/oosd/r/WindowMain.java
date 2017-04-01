@@ -23,6 +23,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLayeredPane;
 import javax.swing.border.LineBorder;
+
+import com.sun.xml.internal.ws.assembler.dev.ServerTubelineAssemblyContext;
+
 import javax.swing.SwingConstants;
 import java.awt.CardLayout;
 import java.awt.Font;
@@ -30,6 +33,7 @@ import java.awt.Graphics;
 import java.awt.GraphicsEnvironment;
 
 import javax.swing.JTextField;
+import java.awt.SystemColor;
 
 public class WindowMain {
 
@@ -74,14 +78,16 @@ public class WindowMain {
 	private void initialize() {
 		frame = new JFrame();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setUndecorated(true);
 		//for full screen frame irrespective of screen resolution
 		//GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(frame);
 		frame.setBounds(0, 0, 1366, 768);
 		frame.getContentPane().setForeground(Color.WHITE);
+		frame.setVisible(true);
 		frame.getContentPane().setLayout(null);
 						//create homepanel
 						homepanel = new JPanel();
-						homepanel.setBounds(104, 92, 1256, 647);
+						homepanel.setBounds(104, 125, 1262, 647);
 						frame.getContentPane().add(homepanel);
 						homepanel.setBackground(Color.BLACK);
 						homepanel.setLayout(new CardLayout(0, 0));
@@ -95,7 +101,7 @@ public class WindowMain {
 						//create admin panel
 						adminpanel = new JPanel();
 						adminpanel.setBackground(Color.BLACK);
-						adminpanel.setBounds(104, 92, 1256, 647);
+						adminpanel.setBounds(104, 125, 1262, 647);
 						frame.getContentPane().add(adminpanel);
 						adminpanel.setLayout(null);
 						adminpanel.setVisible(false);			
@@ -203,7 +209,7 @@ public class WindowMain {
 						//to add branch selection panel
 						completetimetablebranch = new JPanel();
 						completetimetablebranch.setBackground(Color.BLACK);
-						completetimetablebranch.setBounds(104, 92, 1256, 647);
+						completetimetablebranch.setBounds(104, 125, 1262, 647);
 						frame.getContentPane().add(completetimetablebranch);
 						completetimetablebranch.setLayout(null);
 						completetimetablebranch.setVisible(false);
@@ -285,7 +291,7 @@ public class WindowMain {
 						//to add year selection panel
 						completetimetableyear = new JPanel();
 						completetimetableyear.setBackground(Color.BLACK);
-						completetimetableyear.setBounds(104, 92, 1256, 647);
+						completetimetableyear.setBounds(104, 125, 1262, 647);
 						frame.getContentPane().add(completetimetableyear);
 						completetimetableyear.setLayout(null);
 						completetimetableyear.setVisible(false);
@@ -352,7 +358,7 @@ public class WindowMain {
 				//add about panel
 				aboutpanel = new JPanel();
 				aboutpanel.setBackground(Color.BLACK);
-				aboutpanel.setBounds(104, 92, 1256, 647);
+				aboutpanel.setBounds(104, 125, 1262, 647);
 				frame.getContentPane().add(aboutpanel);
 				aboutpanel.setLayout(new CardLayout(0, 0));
 				aboutpanel.setVisible(false);
@@ -360,7 +366,7 @@ public class WindowMain {
 				//add student panel
 				studentpanel = new JPanel();
 				studentpanel.setBackground(Color.BLACK);
-				studentpanel.setBounds(104, 92, 1256, 647);
+				studentpanel.setBounds(104, 125, 1262, 647);
 				frame.getContentPane().add(studentpanel);
 				studentpanel.setLayout(null);
 				studentpanel.setVisible(false);
@@ -412,7 +418,7 @@ public class WindowMain {
 				//add panel for admin login
 				adminloginpanel = new JPanel();
 				adminloginpanel.setBackground(Color.BLACK);
-				adminloginpanel.setBounds(104, 92, 1256, 647);
+				adminloginpanel.setBounds(104, 125, 1262, 647);
 				frame.getContentPane().add(adminloginpanel);
 				adminloginpanel.setLayout(null);
 				adminloginpanel.setVisible(false);
@@ -459,7 +465,7 @@ public class WindowMain {
 				//add rollid verification panel
 				rollid_panel = new JPanel();
 				rollid_panel.setBackground(Color.BLACK);
-				rollid_panel.setBounds(104, 94, 1256, 645);
+				rollid_panel.setBounds(104, 125, 1262, 645);
 				frame.getContentPane().add(rollid_panel);
 				rollid_panel.setLayout(null);
 				rollid_panel.setVisible(false);
@@ -509,7 +515,7 @@ public class WindowMain {
 		//panel to select student teacher admin etc
 		selectionpanel = new JPanel();
 		selectionpanel.setBackground(Color.DARK_GRAY);
-		selectionpanel.setBounds(0, 0, 106, 739);
+		selectionpanel.setBounds(0, 30, 106, 739);
 		frame.getContentPane().add(selectionpanel);
 		selectionpanel.setLayout(null);
 		selectionpanel.setVisible(true);
@@ -540,7 +546,7 @@ public class WindowMain {
 				homeicon.setIcon(new ImageIcon("resources/images/home.png"));
 			}
 		});
-		homeicon.setBounds(10, 10, 75, 78);
+		homeicon.setBounds(10, 11, 75, 78);
 		selectionpanel.add(homeicon);
 		
 		JLabel lblAbout = new JLabel(new ImageIcon("resources/images/about.png"));
@@ -669,8 +675,8 @@ public class WindowMain {
 		
 		//top panel
 		panel = new JPanel();
-		panel.setBackground(new Color(102, 102, 102));
-		panel.setBounds(104, 0, 1256, 98);
+		panel.setBackground(new Color(255, 102, 0));
+		panel.setBounds(104, 31, 1262, 97);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
 		panel.setVisible(true);
@@ -684,6 +690,23 @@ public class WindowMain {
 		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("resources/images/appname.png"));
 		lblNewLabel_1.setBounds(147, 11, 1000, 74);
 		panel.add(lblNewLabel_1);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(51, 0, 102));
+		panel_1.setBounds(0, 0, 1366, 32);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
+		
+		JLabel lblClose = new JLabel("close");
+		lblClose.setForeground(new Color(255, 255, 255));
+		lblClose.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
+			}
+		});
+		lblClose.setBounds(1310, 11, 46, 14);
+		panel_1.add(lblClose);
 		
 	}
 }
