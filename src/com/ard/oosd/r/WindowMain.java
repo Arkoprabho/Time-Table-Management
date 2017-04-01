@@ -73,13 +73,10 @@ public class WindowMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setResizable(false);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setAutoRequestFocus(false);
-		frame.setIgnoreRepaint(true);
 		//for full screen frame irrespective of screen resolution
-		GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(frame);
-		//frame.setBounds(0, 0, 1366, 768);
+		//GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(frame);
+		frame.setBounds(0, 0, 1366, 768);
 		frame.getContentPane().setForeground(Color.WHITE);
 		frame.getContentPane().setLayout(null);
 						//create homepanel
@@ -88,6 +85,12 @@ public class WindowMain {
 						frame.getContentPane().add(homepanel);
 						homepanel.setBackground(Color.BLACK);
 						homepanel.setLayout(new CardLayout(0, 0));
+						homepanel.setVisible(true);
+						
+						JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/homep.jpg"));
+						lblHomeimage.setBackground(new Color(0, 51, 153));
+						lblHomeimage.setBounds(104, 94, 1256, 645);
+						homepanel.add(lblHomeimage, "homepanel");
 						
 						//create admin panel
 						adminpanel = new JPanel();
@@ -95,8 +98,8 @@ public class WindowMain {
 						adminpanel.setBounds(104, 92, 1256, 647);
 						frame.getContentPane().add(adminpanel);
 						adminpanel.setLayout(null);
+						adminpanel.setVisible(false);			
 						
-			
 						//add generate button to admin panel
 						JLabel lblGenerateTimeTable = new JLabel("Generate time table");
 						lblGenerateTimeTable.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -203,6 +206,7 @@ public class WindowMain {
 						completetimetablebranch.setBounds(104, 92, 1256, 647);
 						frame.getContentPane().add(completetimetablebranch);
 						completetimetablebranch.setLayout(null);
+						completetimetablebranch.setVisible(false);
 						
 						JLabel lblChooseYourBranch = new JLabel("Choose your branch:");
 						lblChooseYourBranch.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -284,6 +288,7 @@ public class WindowMain {
 						completetimetableyear.setBounds(104, 92, 1256, 647);
 						frame.getContentPane().add(completetimetableyear);
 						completetimetableyear.setLayout(null);
+						completetimetableyear.setVisible(false);
 						
 						JLabel lblChooseYourYear = new JLabel("Choose your year:");
 						lblChooseYourYear.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -350,6 +355,7 @@ public class WindowMain {
 				aboutpanel.setBounds(104, 92, 1256, 647);
 				frame.getContentPane().add(aboutpanel);
 				aboutpanel.setLayout(new CardLayout(0, 0));
+				aboutpanel.setVisible(false);
 			
 				//add student panel
 				studentpanel = new JPanel();
@@ -357,6 +363,7 @@ public class WindowMain {
 				studentpanel.setBounds(104, 92, 1256, 647);
 				frame.getContentPane().add(studentpanel);
 				studentpanel.setLayout(null);
+				studentpanel.setVisible(false);
 				
 				JLabel Login = new JLabel("LOGIN");
 				Login.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -408,6 +415,7 @@ public class WindowMain {
 				adminloginpanel.setBounds(104, 92, 1256, 647);
 				frame.getContentPane().add(adminloginpanel);
 				adminloginpanel.setLayout(null);
+				adminloginpanel.setVisible(false);
 				
 				JLabel lblEnterYourPassword = new JLabel("Enter your password");
 				lblEnterYourPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
@@ -454,6 +462,7 @@ public class WindowMain {
 				rollid_panel.setBounds(104, 94, 1256, 645);
 				frame.getContentPane().add(rollid_panel);
 				rollid_panel.setLayout(null);
+				rollid_panel.setVisible(false);
 			
 				JLabel lblSubmit = new JLabel("SUBMIT");
 				lblSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -503,6 +512,7 @@ public class WindowMain {
 		selectionpanel.setBounds(0, 0, 106, 739);
 		frame.getContentPane().add(selectionpanel);
 		selectionpanel.setLayout(null);
+		selectionpanel.setVisible(true);
 		
 		homeicon = new JLabel(new ImageIcon("resources/images/home.png"));
 		homeicon.setToolTipText("HOME");
@@ -510,10 +520,6 @@ public class WindowMain {
 		homeicon.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				
-				JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/homep.jpg"));
-				lblHomeimage.setBounds(104, 94, 1256, 645);
-				homepanel.add(lblHomeimage, "homepanel");
 				homepanel.setVisible(true);
 				aboutpanel.setVisible(false);
 				studentpanel.setVisible(false);
@@ -663,10 +669,11 @@ public class WindowMain {
 		
 		//top panel
 		panel = new JPanel();
-		panel.setBackground(new Color(255, 153, 0));
+		panel.setBackground(new Color(102, 102, 102));
 		panel.setBounds(104, 0, 1256, 98);
 		frame.getContentPane().add(panel);
 		panel.setLayout(null);
+		panel.setVisible(true);
 		
 		//lable for app icon image in top panel
 		JLabel lblNewLabel = new JLabel(new ImageIcon("resources/images/app_icon.png"));
