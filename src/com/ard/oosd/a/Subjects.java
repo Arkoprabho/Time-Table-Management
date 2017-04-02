@@ -3,8 +3,6 @@
  */
 package com.ard.oosd.a;
 
-import java.util.List;
-
 /**
  * Class that holds the subjects associated with a professor.
  * @author Arko
@@ -20,18 +18,18 @@ class Subjects {
      * @param name
      */
     public Subjects(String name, String code, int credit) {
-	subjectCode = code;
-	this.credit = credit;
-	subjectName = name;
+        subjectCode = code;
+        this.credit = credit;
+        subjectName = name;
     }
 
     @Override
     public int hashCode() {
-	final int prime = 31;
-	int result = 1;
-	result = prime * result + credit;
-	result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
-	return result;
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + credit;
+	    result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
+	    return result;
     }
 
     @Override
