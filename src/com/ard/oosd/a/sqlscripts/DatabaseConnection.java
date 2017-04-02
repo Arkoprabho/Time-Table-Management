@@ -38,19 +38,15 @@ public class DatabaseConnection {
         }
         // Connect to the database.
         connect();
+        // Restore from the last stored dump
+        new DumpSQL().restoreDatabase();
+
+        // This should be the last line of the file. After all changes have been made.
         try {
-            // Initialize to the last known database value.
-            new DumpSQL().restoreDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD);
+            // Finally backup all the changes that were made during the executiong of the database.
+            new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
-        }
-        finally {
-            try {
-                // Finally backup all the changes that were made during the executiong of the database.
-                new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
-            } catch (IOException | InterruptedException e) {
-                e.printStackTrace();
-            }
         }
     }
 
