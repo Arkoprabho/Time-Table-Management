@@ -1,6 +1,6 @@
-package com.ard.oosd.a;
+package com.ard.oosd.r;
 
-public class RollToClassMapping {
+public class personalTimeTable {
 	public String branch(int br)
 	{
 		String st = null;
@@ -35,16 +35,16 @@ public class RollToClassMapping {
 		}
 		return yr;
 	}
-	public String map(int rollnum)
+	public void map(int rollnum)
 	{
 		int yr,n=rollnum;
 		String br=null;
 		n=n/1000;
 		br=branch(n%100);
-		System.out.println(br);
+	
 		n=n/100;
 		yr=year(n);
-		System.out.println(yr);
+		
 		String className = null;
 		if(rollnum>=1405000 && rollnum<=1405070)
 		{
@@ -78,7 +78,9 @@ public class RollToClassMapping {
 		{
 			className="CS8";
 		}
-		return className;
+		System.out.println(className);
+		System.out.println(br);
+		System.out.println(yr);
 	}
 
 }

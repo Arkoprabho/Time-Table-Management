@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -57,13 +59,18 @@ public class WindowMain {
 	JPanel Subjectpanel,ProfessorPanel,generatePanel,adminpanel,adminloginpanel,studentpanel,rollid_panel,aboutpanel;
 	JPanel completetimetablebranch,completetimetableyear;
 	String teachername;
-	ArrayList<String> subjectsname=new ArrayList<>();
+	int numberofrooms,numberofclass;
+	JList<String> list_1,list;
+	String completetimetablebr,completetimetableyr;
+	DefaultListModel<String> modelsubject,modelsubjectcode;
+	HashMap<Integer,String> subjectsname=new HashMap<>();
 	private JTextField rollfield;
 	private JTextField passwordfield;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField Professorname;
-	private JTextField textField_2;
+	private JTextField subjectname;
+	private JTextField subjectcode;
 	/**
 	 * Launch the application.
 	 */
@@ -105,84 +112,6 @@ public class WindowMain {
 		frame.setVisible(true);
 		frame.getContentPane().setLayout(null);
 								
-								Subjectpanel = new JPanel();
-								Subjectpanel.setBackground(Color.BLACK);
-								Subjectpanel.setBounds(104, 127, 1262, 641);
-								frame.getContentPane().add(Subjectpanel);
-								Subjectpanel.setLayout(null);
-								
-								DefaultListModel<String> modelsubject=new DefaultListModel<>();
-								JList<String> list = new JList<>(modelsubject);
-								list.setBounds(618, 72, 176, 242);
-								Subjectpanel.add(list);
-								
-								JButton btnAdd_1 = new JButton("ADD");
-								btnAdd_1.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										String s=textField_2.getText().toString();
-										modelsubject.addElement(s);
-										textField_2.setText(null);
-									}
-								});
-								btnAdd_1.setBounds(361, 235, 89, 23);
-								Subjectpanel.add(btnAdd_1);
-								
-								JButton btnRemove_1 = new JButton("REMOVE");
-								btnRemove_1.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent arg0) {
-										int index=list.getSelectedIndex();
-										modelsubject.remove(index);
-										textField_2.setText(null);
-									}
-								});
-								btnRemove_1.setBounds(479, 235, 89, 23);
-								Subjectpanel.add(btnRemove_1);
-								
-								JButton btnClear_1 = new JButton("CLEAR");
-								btnClear_1.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-										modelsubject.clear();
-										list.setModel(modelsubject);
-									}
-								});
-								btnClear_1.setBounds(658, 339, 89, 23);
-								Subjectpanel.add(btnClear_1);
-								
-								textField_2 = new JTextField();
-								textField_2.setBounds(423, 187, 86, 20);
-								Subjectpanel.add(textField_2);
-								textField_2.setColumns(10);
-								
-								JLabel lblEnterSubjectsTo = new JLabel("Enter subjects to add:");
-								lblEnterSubjectsTo.setForeground(Color.WHITE);
-								lblEnterSubjectsTo.setBounds(171, 187, 176, 20);
-								Subjectpanel.add(lblEnterSubjectsTo);
-								
-								JButton btnNewButton = new JButton("Done");
-								btnNewButton.addActionListener(new ActionListener() {
-									public void actionPerformed(ActionEvent e) {
-										int l=modelsubject.getSize();
-										for(int i=0;i<l;i++)
-										{
-											list.setSelectedIndex(i);
-											subjectsname.add(list.getSelectedValue().toString());
-										}
-										modelsubject.clear();
-										list.setModel(modelsubject);
-										Subjectpanel.setVisible(false);
-										ProfessorPanel.setVisible(true);
-										//call function for extracting teachername and subject
-										System.out.println(teachername);
-										for(String abc:subjectsname)
-										{
-											System.out.println(abc);
-										}
-									}
-								});
-								btnNewButton.setBounds(361, 427, 230, 37);
-								Subjectpanel.add(btnNewButton);
-								Subjectpanel.setVisible(false);
-								
 								ProfessorPanel = new JPanel();
 								ProfessorPanel.setBackground(Color.BLACK);
 								ProfessorPanel.setBounds(104, 127, 1262, 641);
@@ -206,6 +135,7 @@ public class WindowMain {
 								ProfessorPanel.add(lblEnterTheProfessor);
 								
 								JButton btnAdd = new JButton("ADD");
+								btnAdd.setCursor(new Cursor(Cursor.HAND_CURSOR));
 								btnAdd.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent arg0) {
 										String s=Professorname.getText().toString();
@@ -217,6 +147,7 @@ public class WindowMain {
 								ProfessorPanel.add(btnAdd);
 								
 								JButton btnRemove = new JButton("Remove");
+								btnRemove.setCursor(new Cursor(Cursor.HAND_CURSOR));
 								btnRemove.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										int index=teacherlist.getSelectedIndex();
@@ -228,6 +159,7 @@ public class WindowMain {
 								ProfessorPanel.add(btnRemove);
 								
 								JButton btnClear = new JButton("Clear");
+								btnClear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 								btnClear.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
 										model.clear();
@@ -238,19 +170,42 @@ public class WindowMain {
 								ProfessorPanel.add(btnClear);
 								
 								JButton btnAddSubjectFor = new JButton("add subject for selected teacher");
+								btnAddSubjectFor.setCursor(new Cursor(Cursor.HAND_CURSOR));
 								btnAddSubjectFor.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent arg0) {
+											if(teacherlist.isSelectionEmpty())
+											{
+												JOptionPane.showMessageDialog(null, "Please choose a teacher name");
+											}
+											else
+											{
 											Subjectpanel.setVisible(true);
 											ProfessorPanel.setVisible(false);
+											generatePanel.setVisible(false);
+											rollid_panel.setVisible(false);
+											homepanel.setVisible(false);
+											aboutpanel.setVisible(false);
+											studentpanel.setVisible(false);
+											rollfield.setVisible(false);
+											passwordfield.setVisible(false);
+											adminloginpanel.setVisible(false);
+											adminpanel.setVisible(false);
+											completetimetablebranch.setVisible(false);
+											completetimetableyear.setVisible(false);
 											teachername=teacherlist.getSelectedValue().toString();
-											
-									}
+											int index=teacherlist.getSelectedIndex();
+											model.remove(index);
+											Professorname.setText(null);
+											}
+										}
 								});
 								btnAddSubjectFor.setBounds(428, 481, 358, 23);
 								ProfessorPanel.add(btnAddSubjectFor);
 								
-								
-								DefaultListModel<String> model1=new DefaultListModel<>();
+								JButton btnGenerate = new JButton("Generate");
+								btnGenerate.setBounds(574, 577, 89, 23);
+								ProfessorPanel.add(btnGenerate);
+								btnGenerate.setCursor(new Cursor(Cursor.HAND_CURSOR));
 								
 								//panel to select number of rooms
 								generatePanel = new JPanel();
@@ -289,6 +244,8 @@ public class WindowMain {
 								lblSubmit_2.addMouseListener(new MouseAdapter() {
 									@Override
 									public void mouseClicked(MouseEvent arg0) {
+									if(!textField.getText().toString().equals("")&&!textField_1.getText().toString().equals(""))
+									{	Subjectpanel.setVisible(false);
 										rollid_panel.setVisible(false);
 										homepanel.setVisible(false);
 										aboutpanel.setVisible(false);
@@ -301,6 +258,11 @@ public class WindowMain {
 										generatePanel.setVisible(false);
 										completetimetablebranch.setVisible(false);
 										completetimetableyear.setVisible(false);
+										numberofrooms=Integer.parseInt(textField.getText().toString());
+										numberofclass=Integer.parseInt(textField_1.getText().toString());
+									}
+									else
+										JOptionPane.showMessageDialog(null," Please enter the required fields");
 									}
 								});
 								lblSubmit_2.setFont(new Font("Nunito Sans", Font.PLAIN, 14));
@@ -308,6 +270,167 @@ public class WindowMain {
 								lblSubmit_2.setBounds(318, 359, 46, 14);
 								generatePanel.add(lblSubmit_2);
 								generatePanel.setVisible(false);
+								
+								Subjectpanel = new JPanel();
+								Subjectpanel.setForeground(Color.WHITE);
+								Subjectpanel.setBackground(Color.BLACK);
+								Subjectpanel.setBounds(104, 127, 1262, 641);
+								frame.getContentPane().add(Subjectpanel);
+								Subjectpanel.setLayout(null);
+								
+								modelsubject=new DefaultListModel<>();
+								list = new JList<>(modelsubject);
+								list.setBounds(618, 72, 176, 242);
+								Subjectpanel.add(list);
+								
+								modelsubjectcode=new DefaultListModel<>();
+								list_1 = new JList(modelsubjectcode);
+								list_1.setBounds(841, 72, 191, 242);
+								Subjectpanel.add(list_1);
+								
+								JLabel lblSubjects = new JLabel("Subjects");
+								lblSubjects.setForeground(Color.WHITE);
+								lblSubjects.setBounds(674, 48, 73, 14);
+								Subjectpanel.add(lblSubjects);
+								
+								JLabel lblCode = new JLabel("Code");
+								lblCode.setForeground(Color.WHITE);
+								lblCode.setBounds(915, 47, 46, 14);
+								Subjectpanel.add(lblCode);
+								
+								subjectcode = new JTextField();
+								subjectcode.setBounds(425, 193, 86, 20);
+								Subjectpanel.add(subjectcode);
+								subjectcode.setColumns(10);
+								
+								JButton btnAdd_1 = new JButton("ADD");
+								btnAdd_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+								btnAdd_1.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										if(subjectcode.getText().toString().equals("")||subjectname.getText().toString().equals(""))
+										{
+											JOptionPane.showMessageDialog(null, "please enter subjectname and code");
+										}
+										else
+										{
+											String s=subjectname.getText().toString();
+											modelsubject.addElement(s);
+											subjectname.setText(null);
+											String s1=subjectcode.getText().toString();
+											modelsubjectcode.addElement(s1);
+											subjectcode.setText(null);
+										}
+									}
+								});
+								btnAdd_1.setBounds(361, 235, 89, 23);
+								Subjectpanel.add(btnAdd_1);
+								
+								JButton btnRemove_1 = new JButton("REMOVE");
+								btnRemove_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+								btnRemove_1.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										if(!list.isSelectionEmpty()&&list_1.isSelectionEmpty())
+										{
+											int index=list.getSelectedIndex();
+											modelsubject.remove(index);
+											subjectname.setText(null);
+											modelsubjectcode.remove(index);
+											subjectcode.setText(null);
+										}
+										else if(!list_1.isSelectionEmpty()&&list.isSelectionEmpty())
+										{
+											int index=list_1.getSelectedIndex();
+											modelsubject.remove(index);
+											subjectname.setText(null);
+											modelsubjectcode.remove(index);
+											subjectcode.setText(null);
+										}
+										else if(!list_1.isSelectionEmpty()&&!list.isSelectionEmpty())
+										{
+											int index=list_1.getSelectedIndex();
+											modelsubject.remove(index);
+											subjectname.setText(null);
+											modelsubjectcode.remove(index);
+											subjectcode.setText(null);
+										}
+										else
+										{
+											JOptionPane.showMessageDialog(null, "please choose a subject or code to remove");
+										}
+									}
+								});
+								btnRemove_1.setBounds(479, 235, 89, 23);
+								Subjectpanel.add(btnRemove_1);
+								
+								JButton btnClear_1 = new JButton("CLEAR");
+								btnClear_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+								btnClear_1.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										modelsubject.clear();
+										list.setModel(modelsubject);
+										modelsubjectcode.clear();
+										list_1.setModel(modelsubjectcode);
+									}
+								});
+								btnClear_1.setBounds(658, 339, 89, 23);
+								Subjectpanel.add(btnClear_1);
+								
+								subjectname = new JTextField();
+								subjectname.setBounds(425, 159, 86, 20);
+								Subjectpanel.add(subjectname);
+								subjectname.setColumns(10);
+								
+								JLabel lblEnterSubjectsTo = new JLabel("Enter subjects to add:");
+								lblEnterSubjectsTo.setForeground(Color.WHITE);
+								lblEnterSubjectsTo.setBounds(171, 159, 176, 20);
+								Subjectpanel.add(lblEnterSubjectsTo);
+								
+								JButton btndone = new JButton("Done");
+								btndone.setCursor(new Cursor(Cursor.HAND_CURSOR));
+								btndone.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										int l=modelsubject.getSize();
+										for(int i=0;i<l;i++)
+										{
+											list.setSelectedIndex(i);
+											list_1.setSelectedIndex(i);
+											subjectsname.put(Integer.parseInt(list_1.getSelectedValue().toString()), list.getSelectedValue().toString());
+										}
+										Subjectpanel.setVisible(false);
+										ProfessorPanel.setVisible(true);
+										generatePanel.setVisible(false);
+										rollid_panel.setVisible(false);
+										homepanel.setVisible(false);
+										aboutpanel.setVisible(false);
+										studentpanel.setVisible(false);
+										rollfield.setVisible(false);
+										passwordfield.setVisible(false);
+										adminloginpanel.setVisible(false);
+										adminpanel.setVisible(false);
+										completetimetablebranch.setVisible(false);
+										completetimetableyear.setVisible(false);
+										//call function for extracting teachername and subject
+										new generateTimeTable().details(numberofclass,numberofrooms,teachername,subjectsname);
+										subjectsname.clear();
+										modelsubject.clear();
+										modelsubjectcode.clear();
+										list.setModel(modelsubject);
+										list_1.setModel(modelsubjectcode);
+									}
+								});
+								btndone.setBounds(361, 427, 230, 37);
+								Subjectpanel.add(btndone);
+								
+							
+								
+								JLabel lblEnterTheSubject = new JLabel("Enter the subject code:");
+								lblEnterTheSubject.setHorizontalAlignment(SwingConstants.CENTER);
+								lblEnterTheSubject.setForeground(Color.WHITE);
+								lblEnterTheSubject.setBounds(153, 196, 144, 14);
+								Subjectpanel.add(lblEnterTheSubject);
+								Subjectpanel.setVisible(false);
+								
+								
 								//create homepanel
 								homepanel = new JPanel();
 								homepanel.setBounds(104, 125, 1262, 647);
@@ -341,8 +464,7 @@ public class WindowMain {
 									lblSubmit.addMouseListener(new MouseAdapter() {
 										@Override
 										public void mouseClicked(MouseEvent arg0) {
-											String className=new RollToClassMapping().map(Integer.parseInt(rollfield.getText().toString()));
-											System.out.println(className);
+											new personalTimeTable().map(Integer.parseInt(rollfield.getText().toString()));
 											backtoadminlabel.setVisible(false);
 											lblback_3.setVisible(true);
 											//professor_panel.setVisible(false);
@@ -374,7 +496,8 @@ public class WindowMain {
 												aboutpanel.setVisible(false);
 												studentpanel.setVisible(false);
 												rollfield.setVisible(false);
-												//professor_panel.setVisible(false);
+												Subjectpanel.setVisible(false);
+												ProfessorPanel.setVisible(false);
 												passwordfield.setVisible(false);
 												adminloginpanel.setVisible(false);
 												adminpanel.setVisible(false);
@@ -398,7 +521,8 @@ public class WindowMain {
 												studentpanel.setVisible(false);
 												rollfield.setVisible(false);
 												passwordfield.setVisible(false);
-												//professor_panel.setVisible(false);
+												Subjectpanel.setVisible(false);
+												ProfessorPanel.setVisible(false);
 												adminloginpanel.setVisible(false);
 												generatePanel.setVisible(false);
 												completetimetablebranch.setVisible(false);
@@ -433,9 +557,11 @@ public class WindowMain {
 								completetimetableyear.setVisible(false);
 								rollfield.setVisible(false);
 								generatePanel.setVisible(true);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								passwordfield.setVisible(false);
 								adminloginpanel.setVisible(false);
-						//		professor_panel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								adminpanel.setVisible(false);
 							}
 						});
@@ -459,7 +585,8 @@ public class WindowMain {
 								studentpanel.setVisible(false);
 								completetimetableyear.setVisible(false);
 								rollfield.setVisible(true);
-							//	professor_panel.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								generatePanel.setVisible(false);
 								passwordfield.setVisible(false);
 								adminloginpanel.setVisible(false);
@@ -481,7 +608,8 @@ public class WindowMain {
 								homepanel.setVisible(false);
 								aboutpanel.setVisible(false);
 								studentpanel.setVisible(false);
-								//professor_panel.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								generatePanel.setVisible(false);
 								rollfield.setVisible(true);
 								passwordfield.setVisible(false);
@@ -510,12 +638,13 @@ public class WindowMain {
 								aboutpanel.setVisible(false);
 								studentpanel.setVisible(false);
 								completetimetableyear.setVisible(false);
-							//	professor_panel.setVisible(false);
 								rollfield.setVisible(false);
 								passwordfield.setVisible(false);
 								adminloginpanel.setVisible(false);
 								adminpanel.setVisible(false);
 								generatePanel.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								completetimetablebranch.setVisible(false);
 							}
 						});
@@ -531,14 +660,15 @@ public class WindowMain {
 								rollid_panel.setVisible(false);
 								homepanel.setVisible(false);
 								aboutpanel.setVisible(false);
-								//professor_panel.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
+								generatePanel.setVisible(false);
 								studentpanel.setVisible(false);
 								completetimetableyear.setVisible(false);
 								rollfield.setVisible(false);
 								passwordfield.setVisible(true);
 								passwordfield.setText(null);
 								adminpanel.setVisible(false);
-								generatePanel.setVisible(false);
 								completetimetablebranch.setVisible(false);
 							}
 						});
@@ -571,7 +701,6 @@ public class WindowMain {
 								completetimetableyear.setVisible(true);
 								adminpanel.setVisible(false);
 								rollid_panel.setVisible(false);
-								//professor_panel.setVisible(false);
 								homepanel.setVisible(false);
 								aboutpanel.setVisible(false);
 								studentpanel.setVisible(false);
@@ -579,7 +708,12 @@ public class WindowMain {
 								passwordfield.setVisible(false);
 								adminloginpanel.setVisible(false);
 								generatePanel.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								completetimetablebranch.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
+								completetimetablebr="CSE";
 							}
 						});
 						lblCSE.setHorizontalAlignment(SwingConstants.CENTER);
@@ -602,10 +736,12 @@ public class WindowMain {
 								studentpanel.setVisible(false);
 								rollfield.setVisible(false);
 								generatePanel.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								passwordfield.setVisible(false);
 								adminloginpanel.setVisible(false);
-								//professor_panel.setVisible(false);
 								completetimetablebranch.setVisible(false);
+								completetimetablebr="IT";
 							}
 						});
 						lblIt.setHorizontalAlignment(SwingConstants.CENTER);
@@ -626,9 +762,10 @@ public class WindowMain {
 								rollid_panel.setVisible(false);
 								aboutpanel.setVisible(false);
 								studentpanel.setVisible(false);
-								//professor_panel.setVisible(false);
-								rollfield.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								generatePanel.setVisible(false);
+								rollfield.setVisible(false);
 								passwordfield.setVisible(false);
 								adminloginpanel.setVisible(false);
 								completetimetablebranch.setVisible(false);
@@ -654,6 +791,13 @@ public class WindowMain {
 						completetimetableyear.add(lblChooseYourYear);
 						
 						JLabel _1styear = new JLabel("1st year");
+						_1styear.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								completetimetableyr="1";
+								new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+							}
+						});
 						_1styear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_1styear.setHorizontalAlignment(SwingConstants.CENTER);
 						_1styear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
@@ -662,6 +806,13 @@ public class WindowMain {
 						completetimetableyear.add(_1styear);
 						
 						JLabel _2ndyear = new JLabel("2nd year");
+						_2ndyear.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								completetimetableyr="2";
+								new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+							}
+						});
 						_2ndyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_2ndyear.setForeground(Color.WHITE);
 						_2ndyear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
@@ -670,6 +821,13 @@ public class WindowMain {
 						completetimetableyear.add(_2ndyear);
 						
 						JLabel _3rdyear = new JLabel("3rd year");
+						_3rdyear.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								completetimetableyr="3";
+								new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+							}
+						});
 						_3rdyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_3rdyear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						_3rdyear.setForeground(Color.WHITE);
@@ -678,6 +836,13 @@ public class WindowMain {
 						completetimetableyear.add(_3rdyear);
 						
 						JLabel _4thyear = new JLabel("4th year");
+						_4thyear.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								completetimetableyr="4";
+								new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+							}
+						});
 						_4thyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
 						_4thyear.setFont(new Font("Nunito Sans", Font.PLAIN, 17));
 						_4thyear.setForeground(Color.WHITE);
@@ -694,13 +859,14 @@ public class WindowMain {
 								completetimetablebranch.setVisible(true);
 								completetimetableyear.setVisible(false);
 								adminpanel.setVisible(false);
+								Subjectpanel.setVisible(false);
+								ProfessorPanel.setVisible(false);
 								generatePanel.setVisible(false);
 								rollid_panel.setVisible(false);
 								homepanel.setVisible(false);
 								aboutpanel.setVisible(false);
 								studentpanel.setVisible(false);
 								rollfield.setVisible(false);
-								//professor_panel.setVisible(false);
 								passwordfield.setVisible(false);
 								adminloginpanel.setVisible(false);
 							}
@@ -737,7 +903,8 @@ public class WindowMain {
 						passwordfield.setVisible(false);
 						adminloginpanel.setVisible(false);
 						adminpanel.setVisible(false);
-						//professor_panel.setVisible(false);
+						Subjectpanel.setVisible(false);
+						ProfessorPanel.setVisible(false);
 						generatePanel.setVisible(false);
 						completetimetablebranch.setVisible(false);
 						completetimetableyear.setVisible(false);
@@ -761,7 +928,8 @@ public class WindowMain {
 						completetimetableyear.setVisible(false);
 						rollfield.setVisible(true);
 						passwordfield.setVisible(false);
-					//	professor_panel.setVisible(false);
+						Subjectpanel.setVisible(false);
+						ProfessorPanel.setVisible(false);
 						generatePanel.setVisible(false);
 						adminloginpanel.setVisible(false);
 						adminpanel.setVisible(false);
@@ -807,9 +975,10 @@ public class WindowMain {
 							aboutpanel.setVisible(false);
 							studentpanel.setVisible(false);
 							rollfield.setVisible(false);
+							Subjectpanel.setVisible(false);
+							ProfessorPanel.setVisible(false);
 							generatePanel.setVisible(false);
 							passwordfield.setVisible(false);
-						//	professor_panel.setVisible(false);
 							adminloginpanel.setVisible(false);
 							completetimetablebranch.setVisible(false);
 							completetimetableyear.setVisible(false);
@@ -847,7 +1016,8 @@ public class WindowMain {
 				passwordfield.setVisible(false);
 				adminloginpanel.setVisible(false);
 				adminpanel.setVisible(false);
-		//		professor_panel.setVisible(false);
+				Subjectpanel.setVisible(false);
+				ProfessorPanel.setVisible(false);
 				generatePanel.setVisible(false);
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
@@ -878,8 +1048,9 @@ public class WindowMain {
 				homepanel.setVisible(false);
 				aboutpanel.setVisible(true);
 				rollfield.setVisible(false);
-			//	professor_panel.setVisible(false);
 				studentpanel.setVisible(false);
+				Subjectpanel.setVisible(false);
+				ProfessorPanel.setVisible(false);
 				generatePanel.setVisible(false);
 				rollid_panel.setVisible(false);
 				passwordfield.setVisible(false);
@@ -912,10 +1083,11 @@ public class WindowMain {
 				studentpanel.setVisible(true);
 				rollid_panel.setVisible(false);
 				rollfield.setVisible(false);
-				//professor_panel.setVisible(false);
 				passwordfield.setVisible(false);
 				adminloginpanel.setVisible(false);
 				adminpanel.setVisible(false);
+				Subjectpanel.setVisible(false);
+				ProfessorPanel.setVisible(false);
 				generatePanel.setVisible(false);
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
@@ -944,11 +1116,12 @@ public class WindowMain {
 				aboutpanel.setVisible(false);
 				studentpanel.setVisible(true);
 				rollid_panel.setVisible(false);
-				//professor_panel.setVisible(false);
 				rollfield.setVisible(false);
 				passwordfield.setVisible(false);
 				adminloginpanel.setVisible(false);
 				adminpanel.setVisible(false);
+				Subjectpanel.setVisible(false);
+				ProfessorPanel.setVisible(false);
 				generatePanel.setVisible(false);
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
@@ -982,7 +1155,8 @@ public class WindowMain {
 				passwordfield.setVisible(true);
 				adminloginpanel.setVisible(true);
 				adminpanel.setVisible(false);
-				//professor_panel.setVisible(false);
+				Subjectpanel.setVisible(false);
+				ProfessorPanel.setVisible(false);
 				generatePanel.setVisible(false);
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
