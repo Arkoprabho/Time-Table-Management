@@ -6,6 +6,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -53,13 +54,16 @@ public class WindowMain {
 	JLabel lblHomeimage,backtoadminlabel,lblback_3;
 	//different panels used in the frame
 	JPanel homepanel,selectionpanel,appnamepanel;
-	JPanel ProfessorPanel,generatePanel,adminpanel,adminloginpanel,studentpanel,rollid_panel,aboutpanel;
+	JPanel Subjectpanel,ProfessorPanel,generatePanel,adminpanel,adminloginpanel,studentpanel,rollid_panel,aboutpanel;
 	JPanel completetimetablebranch,completetimetableyear;
+	String teachername;
+	ArrayList<String> subjectsname=new ArrayList<>();
 	private JTextField rollfield;
 	private JTextField passwordfield;
 	private JTextField textField;
 	private JTextField textField_1;
 	private JTextField Professorname;
+	private JTextField textField_2;
 	/**
 	 * Launch the application.
 	 */
@@ -91,6 +95,7 @@ public class WindowMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
+		
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setUndecorated(true);
 		//for full screen frame irrespective of screen resolution
@@ -99,6 +104,84 @@ public class WindowMain {
 		frame.getContentPane().setForeground(Color.WHITE);
 		frame.setVisible(true);
 		frame.getContentPane().setLayout(null);
+								
+								Subjectpanel = new JPanel();
+								Subjectpanel.setBackground(Color.BLACK);
+								Subjectpanel.setBounds(104, 127, 1262, 641);
+								frame.getContentPane().add(Subjectpanel);
+								Subjectpanel.setLayout(null);
+								
+								DefaultListModel<String> modelsubject=new DefaultListModel<>();
+								JList<String> list = new JList<>(modelsubject);
+								list.setBounds(618, 72, 176, 242);
+								Subjectpanel.add(list);
+								
+								JButton btnAdd_1 = new JButton("ADD");
+								btnAdd_1.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										String s=textField_2.getText().toString();
+										modelsubject.addElement(s);
+										textField_2.setText(null);
+									}
+								});
+								btnAdd_1.setBounds(361, 235, 89, 23);
+								Subjectpanel.add(btnAdd_1);
+								
+								JButton btnRemove_1 = new JButton("REMOVE");
+								btnRemove_1.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+										int index=list.getSelectedIndex();
+										modelsubject.remove(index);
+										textField_2.setText(null);
+									}
+								});
+								btnRemove_1.setBounds(479, 235, 89, 23);
+								Subjectpanel.add(btnRemove_1);
+								
+								JButton btnClear_1 = new JButton("CLEAR");
+								btnClear_1.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										modelsubject.clear();
+										list.setModel(modelsubject);
+									}
+								});
+								btnClear_1.setBounds(658, 339, 89, 23);
+								Subjectpanel.add(btnClear_1);
+								
+								textField_2 = new JTextField();
+								textField_2.setBounds(423, 187, 86, 20);
+								Subjectpanel.add(textField_2);
+								textField_2.setColumns(10);
+								
+								JLabel lblEnterSubjectsTo = new JLabel("Enter subjects to add:");
+								lblEnterSubjectsTo.setForeground(Color.WHITE);
+								lblEnterSubjectsTo.setBounds(171, 187, 176, 20);
+								Subjectpanel.add(lblEnterSubjectsTo);
+								
+								JButton btnNewButton = new JButton("Done");
+								btnNewButton.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent e) {
+										int l=modelsubject.getSize();
+										for(int i=0;i<l;i++)
+										{
+											list.setSelectedIndex(i);
+											subjectsname.add(list.getSelectedValue().toString());
+										}
+										modelsubject.clear();
+										list.setModel(modelsubject);
+										Subjectpanel.setVisible(false);
+										ProfessorPanel.setVisible(true);
+										//call function for extracting teachername and subject
+										System.out.println(teachername);
+										for(String abc:subjectsname)
+										{
+											System.out.println(abc);
+										}
+									}
+								});
+								btnNewButton.setBounds(361, 427, 230, 37);
+								Subjectpanel.add(btnNewButton);
+								Subjectpanel.setVisible(false);
 								
 								ProfessorPanel = new JPanel();
 								ProfessorPanel.setBackground(Color.BLACK);
@@ -109,13 +192,7 @@ public class WindowMain {
 								
 								DefaultListModel<String> model=new DefaultListModel<>();
 								JList<String> teacherlist = new JList<>(model);
-								ProfessorPanel.add(teacherlist);
-								JScrollPane listScrollPane = new JScrollPane(teacherlist,JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-								
-							//	listScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-								
 								teacherlist.setBounds(721, 145, 200, 258);
-								ProfessorPanel.add(listScrollPane);
 								ProfessorPanel.add(teacherlist);
 								Professorname = new JTextField();
 								Professorname.setBounds(509, 256, 86, 20);
@@ -132,8 +209,6 @@ public class WindowMain {
 								btnAdd.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent arg0) {
 										String s=Professorname.getText().toString();
-										int k=0;
-										int l=teacherlist.getModel().getSize();
 											model.addElement(s);
 											Professorname.setText(null);
 									}
@@ -161,6 +236,18 @@ public class WindowMain {
 								});
 								btnClear.setBounds(785, 414, 89, 23);
 								ProfessorPanel.add(btnClear);
+								
+								JButton btnAddSubjectFor = new JButton("add subject for selected teacher");
+								btnAddSubjectFor.addActionListener(new ActionListener() {
+									public void actionPerformed(ActionEvent arg0) {
+											Subjectpanel.setVisible(true);
+											ProfessorPanel.setVisible(false);
+											teachername=teacherlist.getSelectedValue().toString();
+											
+									}
+								});
+								btnAddSubjectFor.setBounds(428, 481, 358, 23);
+								ProfessorPanel.add(btnAddSubjectFor);
 								
 								
 								DefaultListModel<String> model1=new DefaultListModel<>();
