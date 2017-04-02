@@ -10,10 +10,11 @@ import java.util.Scanner;
  * Created by arko on 10-03-2017.
  */
 public class DatabaseConnection {
-    private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
-    private static String USER = "root";
-    private static String PASSWORD = "password";
+    static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
+    static String USER = "root";
+    static String PASSWORD = "password";
+    static String DATABASE = "timetablemanagement";
 
     /**
      * Initialize the connection to the database
