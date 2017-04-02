@@ -40,9 +40,17 @@ public class DatabaseConnection {
         connect();
         try {
             // Initialize to the last known database value.
-            new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
+            new DumpSQL().restoreDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
+        }
+        finally {
+            try {
+                // Finally backup all the changes that were made during the executiong of the database.
+                new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
+            } catch (IOException | InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
