@@ -32,8 +32,8 @@ public class DumpSQL {
      * @throws InterruptedException Wait fails
      */
     void backupDatabase(String userName, String password, String databaseName) throws IOException, InterruptedException {
-        //NOTE  Make sure mysqldump is added to PATH
-        String[] executeCommand = new String[] {"cmd.exe", "/c", "\"C:/Program Files (x86)/MySQL/MySQL Server 5.7/bin/mysqldump.exe\" -u "+userName+" -p"+password+" "+databaseName+" > src/com/ard/oosd/a/sqlscripts/scripts/Time-Table-Management-Dump.sql"};
+        //NOTE  Make sure mysql is added to PATH
+        String[] executeCommand = new String[] {"cmd.exe", "/c", "\"C:/Program Files (x86)/MySQL/MySQL Server 5.7/bin/mysqldump.exe\" -u "+userName+" -p"+password+" --databases "+databaseName+" > src/com/ard/oosd/a/sqlscripts/scripts/Time-Table-Management-Dump.sql"};
         Process process = Runtime.getRuntime().exec(executeCommand);
         if(process.waitFor() == 0) {
             InputStream inputStream = process.getInputStream();
