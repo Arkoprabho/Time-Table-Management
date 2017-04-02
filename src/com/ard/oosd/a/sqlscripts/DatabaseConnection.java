@@ -1,6 +1,5 @@
 package com.ard.oosd.a.sqlscripts;
 
-import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -13,10 +12,8 @@ import java.util.Scanner;
 public class DatabaseConnection {
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
-    static String USER = "root";
-    static String PASSWORD = "password";
-    static String DATABASE = "timetablemanagement";
-    public static Connection connection = null;
+    private static String USER = "root";
+    private static String PASSWORD = "password";
 
     /**
      * Initialize the connection to the database
@@ -38,22 +35,13 @@ public class DatabaseConnection {
         }
         // Connect to the database.
         connect();
-        // Restore from the last stored dump
-        new DumpSQL().restoreDatabase();
-
-        // This should be the last line of the file. After all changes have been made.
-        try {
-            // Finally backup all the changes that were made during the executiong of the database.
-            new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
      * Connect to the database.
      */
-    private static void connect() {
+    private void connect() {
+        Connection connection = null;
         try {
             Class.forName(JDBC_DRIVER);
             System.out.println("Connecting to database!");
@@ -61,6 +49,13 @@ public class DatabaseConnection {
         }
         catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
+        } finally {
+            try {
+                if(connection != null)
+                    connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
     }
 

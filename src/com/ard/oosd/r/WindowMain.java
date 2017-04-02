@@ -1,41 +1,70 @@
 package com.ard.oosd.r;
 
+import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
-import java.awt.CardLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+import javax.imageio.ImageIO;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
+import java.awt.Color;
+import java.awt.Cursor;
+
+import javax.swing.border.BevelBorder;
+import javax.swing.JButton;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JLayeredPane;
+import javax.swing.border.LineBorder;
+
+import com.sun.xml.internal.ws.assembler.dev.ServerTubelineAssemblyContext;
+
+import javax.swing.SwingConstants;
+import java.awt.CardLayout;
+import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.GraphicsEnvironment;
+
 import javax.swing.JTextField;
+import java.awt.SystemColor;
 
 public class WindowMain {
 
 	public JFrame frame;
-	private JTextField txtYoyoYourComplete;
-	private JTextField textField_2;
-	private ButtonGroup yearButtonGroup=new ButtonGroup();
-	private ButtonGroup branchButtonGroup=new ButtonGroup();
-	JRadioButton rdbtnstYear,rdbtnndYear,rdbtnrdYear,rdbtnthYear,rdbtnCse,rdbtnIt;
-
-	// The first panel.This is what the user first sees.
-	JPanel homePanel;
-	// Visible after the user chooses to view the time table. Here he can choose the year.
-	JPanel chooseYearPanel;
-	// Visible after the user submits the year. Here he can choose the branch.
-	JPanel chooseBranchPanel;
-	// The user can now see the entire time table.
-	JPanel completeTimeTablePanel;
-	// The user is asked for his roll number. 
-	JPanel rollNumberPanel;
-	// The panel that is visible only to the admin.
-	JPanel adminPanel;
+	JLabel homeicon;
+	JLabel lblHomeimage;
+	//different panels used in the frame
+	JPanel homepanel,selectionpanel,panel;
+	JPanel adminpanel,adminloginpanel,studentpanel,rollid_panel,aboutpanel;
+	JPanel completetimetablebranch,completetimetableyear;
+	private JTextField rollfield;
+	private JTextField passwordfield;
+	/**
+	 * Launch the application.
+	 */
 	
+/*	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					//loading the main frame
+					WindowMain window = new WindowMain();
+					window.frame.setVisible(true);
+					
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+*/
 	/**
 	 * Create the application.
 	 */
@@ -48,333 +77,636 @@ public class WindowMain {
 	 */
 	private void initialize() {
 		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
-		homePanel = new JPanel();
-		frame.getContentPane().add(homePanel, "homepanel");
-		homePanel.setLayout(null);
+		frame.setUndecorated(true);
+		//for full screen frame irrespective of screen resolution
+		//GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice().setFullScreenWindow(frame);
+		frame.setBounds(0, 0, 1366, 768);
+		frame.getContentPane().setForeground(Color.WHITE);
+		frame.setVisible(true);
+		frame.getContentPane().setLayout(null);
+						//create homepanel
+						homepanel = new JPanel();
+						homepanel.setBounds(104, 125, 1262, 647);
+						frame.getContentPane().add(homepanel);
+						homepanel.setBackground(Color.BLACK);
+						homepanel.setLayout(new CardLayout(0, 0));
+						homepanel.setVisible(true);
+						
+						JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/homep.jpg"));
+						lblHomeimage.setBackground(new Color(0, 51, 153));
+						lblHomeimage.setBounds(104, 94, 1256, 645);
+						homepanel.add(lblHomeimage, "homepanel");
+						
+						//create admin panel
+						adminpanel = new JPanel();
+						adminpanel.setBackground(Color.BLACK);
+						adminpanel.setBounds(104, 125, 1262, 647);
+						frame.getContentPane().add(adminpanel);
+						adminpanel.setLayout(null);
+						adminpanel.setVisible(false);			
+						
+						//add generate button to admin panel
+						JLabel lblGenerateTimeTable = new JLabel("Generate time table");
+						lblGenerateTimeTable.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblGenerateTimeTable.setHorizontalAlignment(SwingConstants.CENTER);
+						lblGenerateTimeTable.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblGenerateTimeTable.setForeground(Color.WHITE);
+						lblGenerateTimeTable.setBounds(421, 361, 207, 72);
+						adminpanel.add(lblGenerateTimeTable);
+						
+						//add viewcomplete time table button to admin panel
+						JLabel lblViewCompleteTime_1 = new JLabel("View complete time table");
+						lblViewCompleteTime_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblViewCompleteTime_1.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								completetimetablebranch.setVisible(true);
+								rollid_panel.setVisible(false);
+								homepanel.setVisible(false);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								completetimetableyear.setVisible(false);
+								rollfield.setVisible(true);
+								passwordfield.setVisible(false);
+								adminloginpanel.setVisible(false);
+								adminpanel.setVisible(false);
+							}
+						});
+						lblViewCompleteTime_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblViewCompleteTime_1.setForeground(Color.WHITE);
+						lblViewCompleteTime_1.setBounds(421, 253, 236, 66);
+						adminpanel.add(lblViewCompleteTime_1);
+						
+						//add view personal time table to admin panel
+						JLabel lblViewPersonalTime = new JLabel("View Personal time table");
+						lblViewPersonalTime.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblViewPersonalTime.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								rollid_panel.setVisible(true);
+								homepanel.setVisible(false);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								rollfield.setVisible(true);
+								passwordfield.setVisible(false);
+								adminloginpanel.setVisible(false);
+								adminpanel.setVisible(false);
+								completetimetablebranch.setVisible(false);
+								completetimetableyear.setVisible(false);
+							}
+						});
+						lblViewPersonalTime.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblViewPersonalTime.setForeground(Color.WHITE);
+						lblViewPersonalTime.setBounds(421, 146, 254, 53);
+						adminpanel.add(lblViewPersonalTime);
+						
+						//set image as back on the admin panel
+						JLabel lblback_2 = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblback_2.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblback_2.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								rollid_panel.setVisible(false);
+								homepanel.setVisible(true);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								completetimetableyear.setVisible(false);
+								rollfield.setVisible(false);
+								passwordfield.setVisible(false);
+								adminloginpanel.setVisible(false);
+								adminpanel.setVisible(false);
+								completetimetablebranch.setVisible(false);
+							}
+						});
+						lblback_2.setBounds(10, 11, 40, 40);
+						adminpanel.add(lblback_2);
+						
+						JLabel logout = new JLabel("Logout");
+						logout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						logout.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								adminloginpanel.setVisible(true);
+								rollid_panel.setVisible(false);
+								homepanel.setVisible(false);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								completetimetableyear.setVisible(false);
+								rollfield.setVisible(false);
+								passwordfield.setVisible(true);
+								passwordfield.setText(null);
+								adminpanel.setVisible(false);
+								completetimetablebranch.setVisible(false);
+							}
+						});
+						logout.setHorizontalAlignment(SwingConstants.CENTER);
+						logout.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						logout.setForeground(Color.WHITE);
+						logout.setBounds(466, 516, 111, 29);
+						adminpanel.add(logout);
+						
+						//to add branch selection panel
+						completetimetablebranch = new JPanel();
+						completetimetablebranch.setBackground(Color.BLACK);
+						completetimetablebranch.setBounds(104, 125, 1262, 647);
+						frame.getContentPane().add(completetimetablebranch);
+						completetimetablebranch.setLayout(null);
+						completetimetablebranch.setVisible(false);
+						
+						JLabel lblChooseYourBranch = new JLabel("Choose your branch:");
+						lblChooseYourBranch.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblChooseYourBranch.setForeground(Color.WHITE);
+						lblChooseYourBranch.setBounds(510, 156, 152, 52);
+						completetimetablebranch.add(lblChooseYourBranch);
+						
+						JLabel lblCSE = new JLabel("CSE");
+						lblCSE.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblCSE.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								completetimetableyear.setVisible(true);
+								adminpanel.setVisible(false);
+								rollid_panel.setVisible(false);
+								homepanel.setVisible(false);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								rollfield.setVisible(false);
+								passwordfield.setVisible(false);
+								adminloginpanel.setVisible(false);
+								completetimetablebranch.setVisible(false);
+							}
+						});
+						lblCSE.setHorizontalAlignment(SwingConstants.CENTER);
+						lblCSE.setBackground(Color.BLACK);
+						lblCSE.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblCSE.setForeground(Color.WHITE);
+						lblCSE.setBounds(419, 285, 108, 27);
+						completetimetablebranch.add(lblCSE);
+						
+						JLabel lblIt = new JLabel("IT");
+						lblIt.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblIt.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								completetimetableyear.setVisible(true);
+								adminpanel.setVisible(false);
+								rollid_panel.setVisible(false);
+								homepanel.setVisible(false);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								rollfield.setVisible(false);
+								passwordfield.setVisible(false);
+								adminloginpanel.setVisible(false);
+								completetimetablebranch.setVisible(false);
+							}
+						});
+						lblIt.setHorizontalAlignment(SwingConstants.CENTER);
+						lblIt.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblIt.setForeground(Color.WHITE);
+						lblIt.setBounds(652, 285, 120, 27);
+						completetimetablebranch.add(lblIt);
+						
+						JLabel lblBack = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblBack.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblBack.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent e) {
+								homepanel.setVisible(true);
+								completetimetableyear.setVisible(false);
+								adminpanel.setVisible(false);
+								rollid_panel.setVisible(false);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								rollfield.setVisible(false);
+								passwordfield.setVisible(false);
+								adminloginpanel.setVisible(false);
+								completetimetablebranch.setVisible(false);
+							}
+						});
+						lblBack.setForeground(Color.WHITE);
+						lblBack.setBounds(10, 11, 40, 40);
+						completetimetablebranch.add(lblBack);
+			
+						//to add year selection panel
+						completetimetableyear = new JPanel();
+						completetimetableyear.setBackground(Color.BLACK);
+						completetimetableyear.setBounds(104, 125, 1262, 647);
+						frame.getContentPane().add(completetimetableyear);
+						completetimetableyear.setLayout(null);
+						completetimetableyear.setVisible(false);
+						
+						JLabel lblChooseYourYear = new JLabel("Choose your year:");
+						lblChooseYourYear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						lblChooseYourYear.setForeground(Color.WHITE);
+						lblChooseYourYear.setHorizontalAlignment(SwingConstants.CENTER);
+						lblChooseYourYear.setBounds(474, 137, 176, 56);
+						completetimetableyear.add(lblChooseYourYear);
+						
+						JLabel _1styear = new JLabel("1st year");
+						_1styear.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						_1styear.setHorizontalAlignment(SwingConstants.CENTER);
+						_1styear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_1styear.setForeground(Color.WHITE);
+						_1styear.setBounds(315, 275, 100, 34);
+						completetimetableyear.add(_1styear);
+						
+						JLabel _2ndyear = new JLabel("2nd year");
+						_2ndyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						_2ndyear.setForeground(Color.WHITE);
+						_2ndyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_2ndyear.setHorizontalAlignment(SwingConstants.CENTER);
+						_2ndyear.setBounds(453, 279, 100, 27);
+						completetimetableyear.add(_2ndyear);
+						
+						JLabel _3rdyear = new JLabel("3rd year");
+						_3rdyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						_3rdyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_3rdyear.setForeground(Color.WHITE);
+						_3rdyear.setHorizontalAlignment(SwingConstants.CENTER);
+						_3rdyear.setBounds(599, 275, 71, 34);
+						completetimetableyear.add(_3rdyear);
+						
+						JLabel _4thyear = new JLabel("4th year");
+						_4thyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						_4thyear.setFont(new Font("Tahoma", Font.PLAIN, 17));
+						_4thyear.setForeground(Color.WHITE);
+						_4thyear.setHorizontalAlignment(SwingConstants.CENTER);
+						_4thyear.setBounds(718, 279, 89, 30);
+						completetimetableyear.add(_4thyear);
+						
+						JLabel lblback_1 = new JLabel(new ImageIcon("resources/images/Back.png"));
+						lblback_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+						lblback_1.addMouseListener(new MouseAdapter() {
+							@Override
+							public void mouseClicked(MouseEvent arg0) {
+								completetimetablebranch.setVisible(true);
+								completetimetableyear.setVisible(false);
+								adminpanel.setVisible(false);
+								rollid_panel.setVisible(false);
+								homepanel.setVisible(false);
+								aboutpanel.setVisible(false);
+								studentpanel.setVisible(false);
+								rollfield.setVisible(false);
+								passwordfield.setVisible(false);
+								adminloginpanel.setVisible(false);
+							}
+						});
+						lblback_1.setBounds(10, 11, 40, 40);
+						completetimetableyear.add(lblback_1);
+				
+				//add about panel
+				aboutpanel = new JPanel();
+				aboutpanel.setBackground(Color.BLACK);
+				aboutpanel.setBounds(104, 125, 1262, 647);
+				frame.getContentPane().add(aboutpanel);
+				aboutpanel.setLayout(new CardLayout(0, 0));
+				aboutpanel.setVisible(false);
+			
+				//add student panel
+				studentpanel = new JPanel();
+				studentpanel.setBackground(Color.BLACK);
+				studentpanel.setBounds(104, 125, 1262, 647);
+				frame.getContentPane().add(studentpanel);
+				studentpanel.setLayout(null);
+				studentpanel.setVisible(false);
+				
+				JLabel Login = new JLabel("LOGIN");
+				Login.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				Login.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						rollid_panel.setVisible(true);
+						homepanel.setVisible(false);
+						aboutpanel.setVisible(false);
+						studentpanel.setVisible(false);
+						rollfield.setVisible(true);
+						passwordfield.setVisible(false);
+						adminloginpanel.setVisible(false);
+						adminpanel.setVisible(false);
+						completetimetablebranch.setVisible(false);
+						completetimetableyear.setVisible(false);
+					}
+				});
+				Login.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				Login.setForeground(Color.WHITE);
+				Login.setBounds(607, 212, 131, 34);
+				studentpanel.add(Login);
+				
+				JLabel lblViewCompleteTime = new JLabel("View Complete time table");
+				lblViewCompleteTime.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				lblViewCompleteTime.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent arg0) {
+						completetimetablebranch.setVisible(true);
+						rollid_panel.setVisible(false);
+						homepanel.setVisible(false);
+						aboutpanel.setVisible(false);
+						studentpanel.setVisible(false);
+						completetimetableyear.setVisible(false);
+						rollfield.setVisible(true);
+						passwordfield.setVisible(false);
+						adminloginpanel.setVisible(false);
+						adminpanel.setVisible(false);
+					}
+				});
+				lblViewCompleteTime.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblViewCompleteTime.setForeground(Color.WHITE);
+				lblViewCompleteTime.setBounds(540, 306, 222, 66);
+				studentpanel.add(lblViewCompleteTime);
+				
+				//add panel for admin login
+				adminloginpanel = new JPanel();
+				adminloginpanel.setBackground(Color.BLACK);
+				adminloginpanel.setBounds(104, 125, 1262, 647);
+				frame.getContentPane().add(adminloginpanel);
+				adminloginpanel.setLayout(null);
+				adminloginpanel.setVisible(false);
+				
+				JLabel lblEnterYourPassword = new JLabel("Enter your password");
+				lblEnterYourPassword.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblEnterYourPassword.setForeground(Color.WHITE);
+				lblEnterYourPassword.setBounds(168, 232, 219, 52);
+				adminloginpanel.add(lblEnterYourPassword);
+				
+				//textbox to enter password
+				passwordfield = new JTextField();
+				passwordfield.setBounds(500, 237, 171, 36);
+				adminloginpanel.add(passwordfield);
+				passwordfield.setColumns(10);
+				passwordfield.setVisible(false);
+				
+				JLabel lblSubmit_1 = new JLabel("Submit");
+				lblSubmit_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				lblSubmit_1.addMouseListener(new MouseAdapter() {
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						if(passwordfield.getText().toString().equals("ADMIN"))
+						{
+							adminpanel.setVisible(true);
+							rollid_panel.setVisible(false);
+							homepanel.setVisible(false);
+							aboutpanel.setVisible(false);
+							studentpanel.setVisible(false);
+							rollfield.setVisible(false);
+							passwordfield.setVisible(false);
+							adminloginpanel.setVisible(false);
+							completetimetablebranch.setVisible(false);
+							completetimetableyear.setVisible(false);
+							
+						}
+					}
+				});
+				lblSubmit_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblSubmit_1.setForeground(Color.WHITE);
+				lblSubmit_1.setBounds(552, 376, 102, 44);
+				adminloginpanel.add(lblSubmit_1);
 		
-		addLoginButton();
-		addViewTimeTableButton();
-		chooseYear();
+				//add rollid verification panel
+				rollid_panel = new JPanel();
+				rollid_panel.setBackground(Color.BLACK);
+				rollid_panel.setBounds(104, 125, 1262, 645);
+				frame.getContentPane().add(rollid_panel);
+				rollid_panel.setLayout(null);
+				rollid_panel.setVisible(false);
+			
+				JLabel lblSubmit = new JLabel("SUBMIT");
+				lblSubmit.setCursor(new Cursor(Cursor.HAND_CURSOR));
+				lblSubmit.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblSubmit.setForeground(Color.WHITE);
+				lblSubmit.setBounds(507, 328, 134, 55);
+				rollid_panel.add(lblSubmit);
+				
+				JLabel lblEnterYourId = new JLabel("Enter your id or roll no:");
+				lblEnterYourId.setFont(new Font("Tahoma", Font.PLAIN, 17));
+				lblEnterYourId.setForeground(Color.WHITE);
+				lblEnterYourId.setBounds(266, 248, 204, 20);
+				rollid_panel.add(lblEnterYourId);
+				
+					
+					rollfield = new JTextField();
+					rollfield.setBounds(491, 248, 86, 20);
+					rollid_panel.add(rollfield);
+					rollfield.setColumns(10);
+					
+					JLabel lblback_3 = new JLabel(new ImageIcon("resources/images/Back.png"));
+					lblback_3.setCursor(new Cursor(Cursor.HAND_CURSOR));
+					lblback_3.addMouseListener(new MouseAdapter() {
+						@Override
+						public void mouseClicked(MouseEvent e) {
+							rollid_panel.setVisible(false);
+							homepanel.setVisible(true);
+							aboutpanel.setVisible(false);
+							studentpanel.setVisible(false);
+							rollfield.setVisible(false);
+							passwordfield.setVisible(false);
+							adminloginpanel.setVisible(false);
+							adminpanel.setVisible(false);
+							completetimetablebranch.setVisible(false);
+							completetimetableyear.setVisible(false);
+						}
+					});
+					lblback_3.setBounds(10, 11, 40, 40);
+					rollid_panel.add(lblback_3);
+					rollfield.setVisible(false);
+					
+			
 		
-		chooseBranch();
+		//panel to select student teacher admin etc
+		selectionpanel = new JPanel();
+		selectionpanel.setBackground(Color.DARK_GRAY);
+		selectionpanel.setBounds(0, 30, 106, 739);
+		frame.getContentPane().add(selectionpanel);
+		selectionpanel.setLayout(null);
+		selectionpanel.setVisible(true);
 		
-	
+		homeicon = new JLabel(new ImageIcon("resources/images/home.png"));
+		homeicon.setToolTipText("HOME");
+		homeicon.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		homeicon.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				homepanel.setVisible(true);
+				aboutpanel.setVisible(false);
+				studentpanel.setVisible(false);
+				rollid_panel.setVisible(false);
+				rollfield.setVisible(false);
+				passwordfield.setVisible(false);
+				adminloginpanel.setVisible(false);
+				adminpanel.setVisible(false);
+				completetimetablebranch.setVisible(false);
+				completetimetableyear.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				homeicon.setIcon(new ImageIcon("resources/images/homehover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				homeicon.setIcon(new ImageIcon("resources/images/home.png"));
+			}
+		});
+		homeicon.setBounds(10, 11, 75, 78);
+		selectionpanel.add(homeicon);
 		
-		completeTimeTable();
+		JLabel lblAbout = new JLabel(new ImageIcon("resources/images/about.png"));
+		lblAbout.setToolTipText("ABOUT");
+		lblAbout.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblAbout.setForeground(Color.WHITE);
+		lblAbout.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				 JLabel lblHomeimage = new JLabel(new ImageIcon("resources/images/aboutpage.jpg"));
+				lblHomeimage.setBounds(104, 94, 1256, 645);
+				aboutpanel.add(lblHomeimage, "lblHomeimage");
+				homepanel.setVisible(false);
+				aboutpanel.setVisible(true);
+				rollfield.setVisible(false);
+				studentpanel.setVisible(false);
+				rollid_panel.setVisible(false);
+				passwordfield.setVisible(false);
+				adminloginpanel.setVisible(false);
+				adminpanel.setVisible(false);
+				completetimetablebranch.setVisible(false);
+				completetimetableyear.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblAbout.setIcon(new ImageIcon("resources/images/abouthover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblAbout.setIcon(new ImageIcon("resources/images/about.png"));
+			}
+		});
+		lblAbout.setBounds(10, 450, 75, 78);
+		selectionpanel.add(lblAbout);
 		
-		// Set all the radio buttons in their button group
-		yearButtonGroup.add(rdbtnthYear);
-		yearButtonGroup.add(rdbtnrdYear);
-		yearButtonGroup.add(rdbtnndYear);
-		yearButtonGroup.add(rdbtnstYear);
-		branchButtonGroup.add(rdbtnIt);
-		branchButtonGroup.add(rdbtnCse);
+		JLabel lblStudent = new JLabel(new ImageIcon("resources/images/student.png"));
+		lblStudent.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblStudent.setToolTipText("STUDENT");
+		lblStudent.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homepanel.setVisible(false);
+				aboutpanel.setVisible(false);
+				studentpanel.setVisible(true);
+				rollid_panel.setVisible(false);
+				rollfield.setVisible(false);
+				passwordfield.setVisible(false);
+				adminloginpanel.setVisible(false);
+				adminpanel.setVisible(false);
+				completetimetablebranch.setVisible(false);
+				completetimetableyear.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblStudent.setIcon(new ImageIcon("resources/images/studenthover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblStudent.setIcon(new ImageIcon("resources/images/student.png"));
+			}
+		});
+		lblStudent.setForeground(Color.WHITE);
+		lblStudent.setBounds(10, 120, 75, 78);
+		selectionpanel.add(lblStudent);
 		
-		inputRollNumber();
+		JLabel lblTeacher = new JLabel(new ImageIcon("resources/images/teacher.png"));
+		lblTeacher.setToolTipText("TEACHER");
+		lblTeacher.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblTeacher.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homepanel.setVisible(false);
+				aboutpanel.setVisible(false);
+				studentpanel.setVisible(true);
+				rollid_panel.setVisible(false);
+				rollfield.setVisible(false);
+				passwordfield.setVisible(false);
+				adminloginpanel.setVisible(false);
+				adminpanel.setVisible(false);
+				completetimetablebranch.setVisible(false);
+				completetimetableyear.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblTeacher.setIcon(new ImageIcon("resources/images/teacherhover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblTeacher.setIcon(new ImageIcon("resources/images/teacher.png"));
+			}
+		});
+		lblTeacher.setForeground(Color.WHITE);
+		lblTeacher.setBounds(10, 230, 75, 78);
+		selectionpanel.add(lblTeacher);
 		
-		admin();
-	}
+		JLabel lblAdmin = new JLabel(new ImageIcon("resources/images/admin.png"));
+		lblAdmin.setToolTipText("ADMIN");
+		lblAdmin.setCursor(new Cursor(Cursor.HAND_CURSOR));
+		lblAdmin.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				homepanel.setVisible(false);
+				aboutpanel.setVisible(false);
+				studentpanel.setVisible(false);
+				rollid_panel.setVisible(false);
+				rollfield.setVisible(false);
+				passwordfield.setText(null);
+				passwordfield.setVisible(true);
+				adminloginpanel.setVisible(true);
+				adminpanel.setVisible(false);
+				completetimetablebranch.setVisible(false);
+				completetimetableyear.setVisible(false);
+			}
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				lblAdmin.setIcon(new ImageIcon("resources/images/adminhover.png"));
+			}
+			@Override
+			public void mouseExited(MouseEvent e) {
+				lblAdmin.setIcon(new ImageIcon("resources/images/admin.png"));
+			}
+		});
+		lblAdmin.setForeground(Color.WHITE);
+		lblAdmin.setBounds(10, 340, 75, 78);
+		selectionpanel.add(lblAdmin);
+		
+		//top panel
+		panel = new JPanel();
+		panel.setBackground(new Color(255, 102, 0));
+		panel.setBounds(104, 31, 1262, 97);
+		frame.getContentPane().add(panel);
+		panel.setLayout(null);
+		panel.setVisible(true);
+		
+		//lable for app icon image in top panel
+		JLabel lblNewLabel = new JLabel(new ImageIcon("resources/images/app_icon.png"));
+		lblNewLabel.setBounds(10, 11, 122, 74);
+		panel.add(lblNewLabel);
 
-	/**
-	 * Sets the admin panel with its details.
-	 * Activates it's related panel.
-	 */
-	private void admin() {
-		adminPanel = new JPanel();
-		frame.getContentPane().add(adminPanel, "adminPanel");
-		adminPanel.setLayout(null);
+		//label for name of app in top panel
+		JLabel lblNewLabel_1 = new JLabel(new ImageIcon("resources/images/appname.png"));
+		lblNewLabel_1.setBounds(147, 11, 1000, 74);
+		panel.add(lblNewLabel_1);
 		
-		JButton btnNewButton_2 = new JButton("View time table");
-		btnNewButton_2.setBounds(10, 119, 125, 23);
-		adminPanel.add(btnNewButton_2);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(new Color(51, 0, 102));
+		panel_1.setBounds(0, 0, 1366, 32);
+		frame.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
 		
-		JButton btnNewButton_3 = new JButton("EDIT DATABASE");
-		btnNewButton_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
+		JLabel lblClose = new JLabel("close");
+		lblClose.setForeground(new Color(255, 255, 255));
+		lblClose.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				frame.dispose();
 			}
 		});
-		btnNewButton_3.setBounds(145, 119, 150, 23);
-		adminPanel.add(btnNewButton_3);
+		lblClose.setBounds(1310, 11, 46, 14);
+		panel_1.add(lblClose);
 		
-		JButton btnGenerate = new JButton("Generate");
-		btnGenerate.setBounds(305, 119, 119, 23);
-		adminPanel.add(btnGenerate);
-		
-		JButton btnLogout = new JButton("Logout");
-		btnLogout.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				homePanel.setVisible(false);
-				textField_2.setText(null);
-				chooseYearPanel.setVisible(false);
-				chooseBranchPanel.setVisible(false);
-				rollNumberPanel.setVisible(true);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-			}
-		});
-		btnLogout.setBounds(156, 206, 89, 23);
-		adminPanel.add(btnLogout);
-	}
-
-	/**
-	 * Lets the user input the roll number to login.
-	 * Activates it's related panel.
-	 */
-	private void inputRollNumber() {
-		rollNumberPanel = new JPanel();
-		frame.getContentPane().add(rollNumberPanel, "rollNumberPanel");
-		rollNumberPanel.setLayout(null);
-		
-		JLabel lblEnterUrIdrollno = new JLabel("Enter ur id/rollno:");
-		lblEnterUrIdrollno.setBounds(43, 112, 131, 35);
-		rollNumberPanel.add(lblEnterUrIdrollno);
-		
-		textField_2 = new JTextField();
-		textField_2.setBounds(258, 119, 86, 20);
-		rollNumberPanel.add(textField_2);
-		textField_2.setColumns(10);
-		
-		JButton btnSubmit_2 = new JButton("Submit");
-		btnSubmit_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				if(textField_2.getText().equals("ADMIN"))
-				{
-					adminPanel.setVisible(true);
-					homePanel.setVisible(false);
-					chooseYearPanel.setVisible(false);
-					chooseBranchPanel.setVisible(false);
-					rollNumberPanel.setVisible(false);
-					completeTimeTablePanel.setVisible(false);
-				}
-			}
-		});
-		btnSubmit_2.setBounds(149, 198, 89, 23);
-		rollNumberPanel.add(btnSubmit_2);
-		
-		// TODO should validate the roll number and its associated section. It should also check if it is the admin and take to the respective panel.
-		
-		JButton btnBack_3 = new JButton("back");
-		btnBack_3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				homePanel.setVisible(true);
-				chooseYearPanel.setVisible(false);
-				chooseBranchPanel.setVisible(false);
-				rollNumberPanel.setVisible(false);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-			}
-		});
-		btnBack_3.setBounds(10, 11, 89, 23);
-		rollNumberPanel.add(btnBack_3);
-	}
-
-	/**
-	 * Shows the complete time table.
-	 * Activates it's related panel.
-	 */
-	private void completeTimeTable() {
-		completeTimeTablePanel = new JPanel();
-		frame.getContentPane().add(completeTimeTablePanel, "completeTimeTablePanel");
-		completeTimeTablePanel.setLayout(null);
-		//display time table
-		txtYoyoYourComplete = new JTextField();
-		txtYoyoYourComplete.setText("yoyo your complete timetable here");
-		txtYoyoYourComplete.setBounds(56, 151, 283, 20);
-		completeTimeTablePanel.add(txtYoyoYourComplete);
-		txtYoyoYourComplete.setColumns(10);
-		
-		JButton btnBack_2 = new JButton("Back");
-		btnBack_2.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				homePanel.setVisible(false);
-				chooseYearPanel.setVisible(true);
-				chooseBranchPanel.setVisible(false);
-				branchButtonGroup.clearSelection();
-				yearButtonGroup.clearSelection();
-				rollNumberPanel.setVisible(false);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-			}
-		});
-		btnBack_2.setBounds(10, 11, 89, 23);
-		completeTimeTablePanel.add(btnBack_2);
-	}
-
-	/**
-	 * Lets the user choose the branch.
-	 * Activates it's related panel.
-	 */
-	private void chooseBranch() {
-		chooseBranchPanel = new JPanel();
-		frame.getContentPane().add(chooseBranchPanel, "chooseBranchPanel");
-		chooseBranchPanel.setLayout(null);
-		
-		JLabel lblEnterYourBranch = new JLabel("Choose your Branch:");
-		lblEnterYourBranch.setBounds(66, 104, 125, 14);
-		chooseBranchPanel.add(lblEnterYourBranch);
-		
-		// Set the button parameters for the branch.
-		rdbtnCse = new JRadioButton("CSE");
-		rdbtnCse.setBounds(209, 64, 109, 23);
-		chooseBranchPanel.add(rdbtnCse);
-		
-		rdbtnIt = new JRadioButton("IT");
-		rdbtnIt.setBounds(209, 97, 109, 23);
-		chooseBranchPanel.add(rdbtnIt);
-		
-		JButton btnSubmit_1 = new JButton("Submit");
-		btnSubmit_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnCse.isSelected()||rdbtnIt.isSelected())
-				{
-				homePanel.setVisible(false);
-				chooseYearPanel.setVisible(false);
-				chooseBranchPanel.setVisible(false);
-				rollNumberPanel.setVisible(false);
-				completeTimeTablePanel.setVisible(true);
-				adminPanel.setVisible(false);
-				}
-				else
-					JOptionPane.showMessageDialog(frame, "please choose a branch");
-				}
-		});
-		btnSubmit_1.setBounds(157, 197, 89, 23);
-		chooseBranchPanel.add(btnSubmit_1);
-		
-		JButton btnBack_1 = new JButton("Back");
-		btnBack_1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				homePanel.setVisible(false);
-				chooseYearPanel.setVisible(true);
-				chooseBranchPanel.setVisible(false);
-				yearButtonGroup.clearSelection();
-				rollNumberPanel.setVisible(false);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-			}
-		});
-		btnBack_1.setBounds(10, 11, 89, 23);
-		chooseBranchPanel.add(btnBack_1);
-	}
-
-	/**
-	 * Sets the parameters for the radio button.
-	 * Also sets the panel it is associated with.
-	 * @return
-	 */
-	private JRadioButton setButtonParameters(String name, int xPos, int yPos, int width, int height, JPanel panelToAdd) {
-		JRadioButton rdbtnstYear = new JRadioButton(name);
-		rdbtnstYear.setBounds(219, yPos, 109, 23);
-		panelToAdd.add(rdbtnstYear);
-		return rdbtnstYear;
-	}
-
-	/**
-	 * Lets the user choose the year.
-	 * Activates it's related panel.
-	 */
-	private void chooseYear() {
-		chooseYearPanel = new JPanel();
-		frame.getContentPane().add(chooseYearPanel, "chooseYearPanel");
-		chooseYearPanel.setLayout(null);
-		
-		JLabel lblEnterUrYear = new JLabel("Choose your year:");
-		lblEnterUrYear.setBounds(70, 104, 120, 14);
-		chooseYearPanel.add(lblEnterUrYear);
-		
-		// Set the button parameters for the years.
-		rdbtnstYear = new JRadioButton("1st year");
-		rdbtnstYear.setBounds(219, 49, 109, 23);
-		chooseYearPanel.add(rdbtnstYear);
-		
-		rdbtnndYear = new JRadioButton("2nd year");
-		rdbtnndYear.setBounds(219, 75, 109, 23);
-		chooseYearPanel.add(rdbtnndYear);
-		
-		rdbtnrdYear = new JRadioButton("3rd year");
-		rdbtnrdYear.setBounds(219, 100, 109, 23);
-		chooseYearPanel.add(rdbtnrdYear);
-		
-		rdbtnthYear = new JRadioButton("4th year");
-		rdbtnthYear.setBounds(219, 126, 109, 23);
-		chooseYearPanel.add(rdbtnthYear);
-		
-		JButton btnSubmit = new JButton("Submit");
-		btnSubmit.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				if(rdbtnndYear.isSelected()||rdbtnrdYear.isSelected()||rdbtnstYear.isSelected()||rdbtnthYear.isSelected())
-				{
-				homePanel.setVisible(false);
-				chooseYearPanel.setVisible(false);
-				chooseBranchPanel.setVisible(true);
-				branchButtonGroup.clearSelection();
-				rollNumberPanel.setVisible(false);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-				}
-				else
-					JOptionPane.showMessageDialog(frame, "please choose a year");
-			}
-		});
-		btnSubmit.setBounds(151, 200, 89, 23);
-		chooseYearPanel.add(btnSubmit);
-		
-		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				homePanel.setVisible(true);
-				chooseYearPanel.setVisible(false);
-				chooseBranchPanel.setVisible(false);
-				rollNumberPanel.setVisible(false);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-			}
-		});
-		btnBack.setBounds(10, 11, 89, 23);
-		chooseYearPanel.add(btnBack);
-	}
-
-	/**
-	 * Adds the View Time Table button to the homePanel.
-	 */
-	private void addViewTimeTableButton() {
-		JButton viewTimeTableButton = new JButton("View Time Table");
-		viewTimeTableButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				homePanel.setVisible(false);
-				chooseYearPanel.setVisible(true);
-				yearButtonGroup.clearSelection();
-				chooseBranchPanel.setVisible(false);
-				rollNumberPanel.setVisible(false);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-			}
-		});
-		
-		viewTimeTableButton.setBounds(29, 110, 200, 41);
-		homePanel.add(viewTimeTableButton);
-	}
-
-	/**
-	 * Adds the Login button to the homePanel.
-	 */
-	private void addLoginButton() {
-		JButton loginButton = new JButton("LOGIN");
-		loginButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				homePanel.setVisible(false);
-				chooseYearPanel.setVisible(false);
-				chooseBranchPanel.setVisible(false);
-				rollNumberPanel.setVisible(true);
-				completeTimeTablePanel.setVisible(false);
-				adminPanel.setVisible(false);
-			}
-		});
-		
-		loginButton.setBounds(230, 110, 183, 41);
-		homePanel.add(loginButton);
 	}
 }

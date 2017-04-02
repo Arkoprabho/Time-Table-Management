@@ -1,5 +1,3 @@
-CREATE DATABASE  IF NOT EXISTS `timetablemanagement` /*!40100 DEFAULT CHARACTER SET utf8 */;
-USE `timetablemanagement`;
 -- MySQL dump 10.13  Distrib 5.7.17, for Win32 (AMD64)
 --
 -- Host: localhost    Database: timetablemanagement
@@ -18,110 +16,26 @@ USE `timetablemanagement`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `department`
+-- Table structure for table `abc`
 --
 
-DROP TABLE IF EXISTS `department`;
+DROP TABLE IF EXISTS `abc`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `department` (
-  `DepartmentHashCode` int(11) NOT NULL,
-  `Name` varchar(45) NOT NULL,
-  PRIMARY KEY (`DepartmentHashCode`)
+CREATE TABLE `abc` (
+  `id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `department`
+-- Dumping data for table `abc`
 --
 
-LOCK TABLES `department` WRITE;
-/*!40000 ALTER TABLE `department` DISABLE KEYS */;
-/*!40000 ALTER TABLE `department` ENABLE KEYS */;
+LOCK TABLES `abc` WRITE;
+/*!40000 ALTER TABLE `abc` DISABLE KEYS */;
+INSERT INTO `abc` VALUES (100);
+/*!40000 ALTER TABLE `abc` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `faculty`
---
-
-DROP TABLE IF EXISTS `faculty`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `faculty` (
-  `Name` varchar(45) NOT NULL,
-  `DepartmentCode` int(11) NOT NULL,
-  `SubjectCode` varchar(45) NOT NULL,
-  `Type` enum('Teacher','LabAssitant','Administration','Research','Others') NOT NULL,
-  KEY `DepartmentCode_idx` (`DepartmentCode`),
-  KEY `SubjectCode_idx` (`SubjectCode`),
-  CONSTRAINT `DepartmentCode` FOREIGN KEY (`DepartmentCode`) REFERENCES `department` (`DepartmentHashCode`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `SubjectCode` FOREIGN KEY (`SubjectCode`) REFERENCES `subjects` (`SubjectCode`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `faculty`
---
-
-LOCK TABLES `faculty` WRITE;
-/*!40000 ALTER TABLE `faculty` DISABLE KEYS */;
-/*!40000 ALTER TABLE `faculty` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `location`
---
-
-DROP TABLE IF EXISTS `location`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `location` (
-  `RoomHashCode` int(11) NOT NULL,
-  `Name` varchar(5) NOT NULL,
-  PRIMARY KEY (`RoomHashCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `location`
---
-
-LOCK TABLES `location` WRITE;
-/*!40000 ALTER TABLE `location` DISABLE KEYS */;
-/*!40000 ALTER TABLE `location` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `subjects`
---
-
-DROP TABLE IF EXISTS `subjects`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `subjects` (
-  `SubjectCode` varchar(45) NOT NULL,
-  `Name` varchar(45) NOT NULL,
-  `Credit` int(11) NOT NULL,
-  PRIMARY KEY (`SubjectCode`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `subjects`
---
-
-LOCK TABLES `subjects` WRITE;
-/*!40000 ALTER TABLE `subjects` DISABLE KEYS */;
-/*!40000 ALTER TABLE `subjects` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping events for database 'timetablemanagement'
---
-
---
--- Dumping routines for database 'timetablemanagement'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -132,4 +46,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-02 10:03:10
+-- Dump completed on 2017-03-14 23:56:45
