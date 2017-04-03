@@ -38,12 +38,6 @@ public class DatabaseConnection {
         }
         // Connect to the database.
         connect();
-        try {
-            // Initialize to the last known database value.
-            new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
     }
 
     /**
