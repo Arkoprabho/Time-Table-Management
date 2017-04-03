@@ -20,13 +20,14 @@ class Professor {
     
     /**
      * Initialize the Professor with the parameters.
-     * @param name
-     * @param subjects
+     * @param name of the professor
+     * @param subjects to add
      */
-    Professor(String name) {
-	// Set the name of the professors.
-	professorName = name;
-	// Set the associated subjects with the professor.
+    Professor(String name, List<Subjects> subjects) {
+	    // Set the name of the professors.
+	    professorName = name;
+	    // Set the associated subjects with the professor.
+        setAssociatedSubject(subjects);
     }
 
     /**
