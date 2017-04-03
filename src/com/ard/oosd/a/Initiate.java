@@ -45,13 +45,6 @@ class Initiate {
 	    code = Integer.parseInt(inputReader.readLine());
 	    System.out.print("Subject credit: ");
 	    credit = Integer.parseInt(inputReader.readLine());
-	    Subjects subjectToAdd = new Subjects(subName, code, credit);
-	    if(!subjectToAdd.CheckEquality(subjectList)) {
-		System.out.println("Error. Try again!");
-		numberOfSubjects++;
-	    }
-	    else
-		subjectList.add(subjectToAdd);
 
 	}
 	
