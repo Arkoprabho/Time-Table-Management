@@ -1,3 +1,7 @@
+/**
+ * company.arkorishabhdavid.objectorientedsystemdesign.arko
+ * Contains code that was created by arko
+ */
 package com.ard.oosd.a;
 
 /**
@@ -6,19 +10,6 @@ package com.ard.oosd.a;
  */
 public interface PeopleInterface {
     // TODO Further functionalities are to be added as they seem necessary.
-
-    /**
-     * Sets the type of user.
-     */
-    void setTypeOfUser();
-
-    /**
-     * @return the type of user.
-     */
-    TypeOfUser getTypeOfUser();
-
-    /**
-     * Logs the user into the application
-     */
+    void views();
     void login();
 }
