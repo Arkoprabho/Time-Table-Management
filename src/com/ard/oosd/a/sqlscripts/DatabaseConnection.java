@@ -36,10 +36,9 @@ public class DatabaseConnection {
             // Make sure that all the variables are correct.
             changeVariable(scanner);
         }
+        // Make sure that you have the latest snapshot of the database.
         // Connect to the database.
         connect();
-        // Restore the database from the previous state.
-        new DumpSQL().restoreDatabase();
     }
 
     /**
