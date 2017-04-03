@@ -10,9 +10,10 @@ public class generateTimeTable {
 		for(Entry<String, String[]> entry:subjectlist.entrySet())
 		{
 			String s[]=entry.getValue();
+			System.out.println(entry.getKey());
 			for(int i=0;i<100;i++)
 				if(s[i]!=null)
-			System.out.println("\n"+entry.getKey()+":"+s[i]);
+			System.out.println("\n"+":"+s[i]);
 		}
 	}
 }
