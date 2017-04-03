@@ -6,7 +6,6 @@ package com.ard.oosd.a;
  */
 class Subjects {
     // Each subject needs to have a subject code, name and credit.
-<<<<<<< HEAD
     int credit;
     String subjectName, subjectCode;
 
@@ -26,22 +25,8 @@ class Subjects {
         final int prime = 31;
         int result = 1;
         result = prime * result + credit;
-	    result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
-	    return result;
-=======
-    private int credit;
-    private String subjectName, subjectCode;
-
-	/**
-	 * * Initializes a new instance of a subject.\m
-	 * @param credit credit associated with the subject.
-	 * @param name name of the subject.
-	 * @param code subject code.
-	 */
-    public Subjects(String name, String code, int credit) {
-		subjectCode = code;
-		this.credit = credit;
-		subjectName = name;
+        result = prime * result + ((subjectName == null) ? 0 : subjectName.hashCode());
+        return result;
     }
 
     /**
@@ -56,7 +41,6 @@ class Subjects {
      */
     String getSubjectName() {
         return subjectName;
->>>>>>> parent of 686b09c... Merge remote-tracking branch 'remotes/origin/master' into Arko
     }
 
     /**
