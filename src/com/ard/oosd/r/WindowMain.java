@@ -63,7 +63,8 @@ public class WindowMain {
 	JList<String> list_1,list;
 	String completetimetablebr,completetimetableyr;
 	DefaultListModel<String> modelsubject,modelsubjectcode;
-	HashMap<Integer,String> subjectsname=new HashMap<>();
+	HashMap<Integer,String> subjectskey=new HashMap<>();
+	HashMap<String,String[]> subjectteacher=new HashMap<>();
 	private JTextField rollfield;
 	private JTextField passwordfield;
 	private JTextField textField;
@@ -203,6 +204,12 @@ public class WindowMain {
 								ProfessorPanel.add(btnAddSubjectFor);
 								
 								JButton btnGenerate = new JButton("Generate");
+								btnGenerate.addMouseListener(new MouseAdapter() {
+									@Override
+									public void mouseClicked(MouseEvent arg0) {
+										new generateTimeTable().details(numberofclass,numberofrooms,subjectteacher);
+									}
+								});
 								btnGenerate.setBounds(574, 577, 89, 23);
 								ProfessorPanel.add(btnGenerate);
 								btnGenerate.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -389,13 +396,16 @@ public class WindowMain {
 								btndone.setCursor(new Cursor(Cursor.HAND_CURSOR));
 								btndone.addActionListener(new ActionListener() {
 									public void actionPerformed(ActionEvent e) {
+										String s[]=new String[100] ;
 										int l=modelsubject.getSize();
 										for(int i=0;i<l;i++)
 										{
 											list.setSelectedIndex(i);
 											list_1.setSelectedIndex(i);
-											subjectsname.put(Integer.parseInt(list_1.getSelectedValue().toString()), list.getSelectedValue().toString());
+											subjectskey.put(Integer.parseInt(list_1.getSelectedValue().toString()), list.getSelectedValue().toString());
+											s[i]=list.getSelectedValue().toString();
 										}
+										subjectteacher.put(teachername, s);
 										Subjectpanel.setVisible(false);
 										ProfessorPanel.setVisible(true);
 										generatePanel.setVisible(false);
@@ -409,9 +419,9 @@ public class WindowMain {
 										adminpanel.setVisible(false);
 										completetimetablebranch.setVisible(false);
 										completetimetableyear.setVisible(false);
-										//call function for extracting teachername and subject
-										new generateTimeTable().details(numberofclass,numberofrooms,teachername,subjectsname);
-										subjectsname.clear();
+										//call function for extracting key and subject
+										new forSubjectCode().details(subjectskey);
+										subjectskey.clear();
 										modelsubject.clear();
 										modelsubjectcode.clear();
 										list.setModel(modelsubject);
