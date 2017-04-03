@@ -1,5 +1,6 @@
 package com.ard.oosd.a.sqlscripts;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -10,11 +11,20 @@ import java.util.Scanner;
  * Created by arko on 10-03-2017.
  */
 public class DatabaseConnection {
+<<<<<<< HEAD
     static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
     static String USER = "root";
     static String PASSWORD = "password";
     static String DATABASE = "timetablemanagement";
+=======
+    private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
+    static String USER = "root";
+    static String PASSWORD = "password";
+    static String DATABASE = "timetablemanagement";
+    public static Connection connection = null;
+>>>>>>> parent of 686b09c... Merge remote-tracking branch 'remotes/origin/master' into Arko
 
     /**
      * Initialize the connection to the database
@@ -36,15 +46,27 @@ public class DatabaseConnection {
         }
         // Connect to the database.
         connect();
+<<<<<<< HEAD
         // Restore the database from the previous state.
         new DumpSQL().restoreDatabase();
+=======
+        // Restore from the last stored dump
+        new DumpSQL().restoreDatabase();
+
+        // This should be the last line of the file. After all changes have been made.
+        try {
+            // Finally backup all the changes that were made during the executiong of the database.
+            new DumpSQL().backupDatabase(DatabaseConnection.USER, DatabaseConnection.PASSWORD, DatabaseConnection.DATABASE);
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+>>>>>>> parent of 686b09c... Merge remote-tracking branch 'remotes/origin/master' into Arko
     }
 
     /**
      * Connect to the database.
      */
-    private void connect() {
-        Connection connection = null;
+    private static void connect() {
         try {
             Class.forName(JDBC_DRIVER);
             System.out.println("Connecting to database!");
@@ -52,13 +74,6 @@ public class DatabaseConnection {
         }
         catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if(connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
