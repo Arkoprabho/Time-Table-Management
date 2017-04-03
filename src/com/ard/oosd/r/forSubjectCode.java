@@ -1,4 +1,5 @@
 package com.ard.oosd.r;
+//gives subjectname and subject key relation
 
 import java.util.HashMap;
 import java.util.Map.Entry;

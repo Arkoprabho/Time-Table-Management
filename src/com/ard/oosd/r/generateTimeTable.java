@@ -1,5 +1,5 @@
 package com.ard.oosd.r;
-
+//gives numberofrooms,numberofsection,teacher-subject realtion
 import java.util.HashMap;
 import java.util.Map.Entry;
 
