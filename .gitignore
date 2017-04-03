@@ -9,6 +9,6 @@
 .idea/
 Time-Table-Management.iml
 out/
-.classpath
-.project
-.idea
+/.classpath
+/.project
+/.idea

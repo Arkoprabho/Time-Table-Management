@@ -37,22 +37,15 @@ class Initiate {
 
 	// Create the list of subject that the professor can teach.
 	while(numberOfSubjects-- != 0) {
-	    String subName;
-	    int code, credit; 
+	    String subName, code;
+	    int credit;
 	    System.out.print("Subject name: ");
 	    subName = inputReader.readLine();
 	    System.out.print("Subject code: ");
-	    code = Integer.parseInt(inputReader.readLine());
+	    code = inputReader.readLine();
 	    System.out.print("Subject credit: ");
 	    credit = Integer.parseInt(inputReader.readLine());
 	    Subjects subjectToAdd = new Subjects(subName, code, credit);
-	    if(!subjectToAdd.CheckEquality(subjectList)) {
-		System.out.println("Error. Try again!");
-		numberOfSubjects++;
-	    }
-	    else
-		subjectList.add(subjectToAdd);
-
 	}
 	
 	// Associate the subjects with the professor.

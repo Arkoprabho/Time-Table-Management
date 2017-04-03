@@ -1,5 +1,6 @@
 package com.ard.oosd.a.sqlscripts;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -12,8 +13,10 @@ import java.util.Scanner;
 public class DatabaseConnection {
     private static String JDBC_DRIVER = "com.mysql.jdbc.Driver";
     private static String DB_URL = "jdbc:mysql://localhost:3306/timetablemanagement?autoReconnect=true&useSSL=false";
-    private static String USER = "root";
-    private static String PASSWORD = "password";
+    static String USER = "root";
+    static String PASSWORD = "password";
+    static String DATABASE = "timetablemanagement";
+    public static Connection connection = null;
 
     /**
      * Initialize the connection to the database
@@ -33,6 +36,7 @@ public class DatabaseConnection {
             // Make sure that all the variables are correct.
             changeVariable(scanner);
         }
+        // Make sure that you have the latest snapshot of the database.
         // Connect to the database.
         connect();
     }
@@ -40,8 +44,7 @@ public class DatabaseConnection {
     /**
      * Connect to the database.
      */
-    private void connect() {
-        Connection connection = null;
+    private static void connect() {
         try {
             Class.forName(JDBC_DRIVER);
             System.out.println("Connecting to database!");
@@ -49,13 +52,6 @@ public class DatabaseConnection {
         }
         catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
-        } finally {
-            try {
-                if(connection != null)
-                    connection.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
         }
     }
 
