@@ -36,6 +36,8 @@ public class DatabaseConnection {
         }
         // Connect to the database.
         connect();
+        // Restore the database from the previous state.
+        new DumpSQL().restoreDatabase();
     }
 
     /**
