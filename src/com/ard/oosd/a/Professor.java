@@ -15,7 +15,7 @@ import java.util.List;
  * @author Arko
  *
  */
-class Professor implements DatabaseEntryInterface {
+public class Professor implements DatabaseEntryInterface {
     // Private fields
     private String professorName = null;
     private String tableName = "faculty";
@@ -26,7 +26,7 @@ class Professor implements DatabaseEntryInterface {
      * @param name of the professor
      * @param subjects to add
      */
-    Professor(String name, List<Subjects> subjects) {
+    public Professor(String name, List<Subjects> subjects) {
 	    // Set the name of the professors.
 	    professorName = name;
 	    // Set the associated subjects with the professor.
@@ -63,23 +63,21 @@ class Professor implements DatabaseEntryInterface {
      */
     @Override
     public boolean writeToDatabase() {
-        // INSERT INTO FACULTY (NAME, SUBJECTCODE, TYPE) VALUES (getProfessorname(), , Teacher)
-        try (PreparedStatement facultyStatement = DatabaseConnection.connection.prepareStatement("INSERT INTO ? (?, ?, Type) VALUES (?, ?, Teacher)")) {
-            facultyStatement.setString(1, this.tableName);
-            facultyStatement.setString(2, "Name");
-            facultyStatement.setString(3, "SubjectCode");
-            facultyStatement.setString(4, this.getProfessorname());
+        try (PreparedStatement facultyStatement = new DatabaseConnection().getCurrentConnection().prepareStatement("INSERT INTO faculty SET Name = ?, SubjectCode = (SELECT subjects.SubjectCode from subjects where subjects.SubjectCode = ?)")) {
+            facultyStatement.setString(1, this.getProfessorname());
+
+
             // Make sure that the subject also exists in the database.
             for (Subjects subject : associatedSubject) {
-                // Might throw an exception in case the Subject already exists in the database.
-                if(subject.writeToDatabase())
-                    facultyStatement.setString(5, subject.getSubjectCode());
-                else
-                    System.out.println("Cant write to database!");
+                if(subject.writeToDatabase()) {
+                    facultyStatement.setString(2, subject.getSubjectCode());
+                    facultyStatement.toString();
+                    facultyStatement.executeUpdate();
+                }
             }
-            facultyStatement.execute();
         } catch (SQLException e) {
             // In case any of the entries are not executed.
+            e.printStackTrace();
             return false;
         }
         return true;
