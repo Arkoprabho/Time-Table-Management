@@ -72,8 +72,10 @@ class Professor implements DatabaseEntryInterface {
             // Make sure that the subject also exists in the database.
             for (Subjects subject : associatedSubject) {
                 // Might throw an exception in case the Subject already exists in the database.
-                subject.writeToDatabase();
-                facultyStatement.setString(5, subject.getSubjectCode());
+                if(subject.writeToDatabase())
+                    facultyStatement.setString(5, subject.getSubjectCode());
+                else
+                    System.out.println("Cant write to database!");
             }
             facultyStatement.execute();
         } catch (SQLException e) {
