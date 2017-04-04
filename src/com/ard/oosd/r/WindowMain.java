@@ -1,47 +1,27 @@
 package com.ard.oosd.r;
 //main class to display main gui
 
-import java.awt.EventQueue;
-import java.awt.Image;
-import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map.Entry;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.imageio.ImageIO;
 import javax.swing.DefaultListModel;
-import javax.swing.GroupLayout;
-import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 
 import java.awt.Color;
 import java.awt.Cursor;
 
-import javax.swing.border.BevelBorder;
 import javax.swing.JButton;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.JLayeredPane;
-import javax.swing.border.LineBorder;
-import com.sun.xml.internal.ws.assembler.dev.ServerTubelineAssemblyContext;
 
 import javax.swing.SwingConstants;
 import java.awt.CardLayout;
 import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.GraphicsEnvironment;
 
 import javax.swing.JTextField;
-import javax.swing.ScrollPaneConstants;
 
-import java.awt.SystemColor;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 
@@ -266,7 +246,7 @@ public class WindowMain {
 		btnGenerate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new generateTimeTable().details(numberofclass,numberofrooms,subjectteacher);
+				new GenerateTimeTable().details(numberofclass,numberofrooms,subjectteacher);
 			}
 		});
 		btnGenerate.setBounds(574, 577, 89, 23);
@@ -483,7 +463,7 @@ public class WindowMain {
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
 				//call function for extracting key and subject
-				new forSubjectCode().details(subjectskey);
+				new SubjectCode().details(subjectskey);
 				subjectskey.clear();
 				modelsubject.clear();
 				modelsubjectcode.clear();
@@ -523,7 +503,7 @@ public class WindowMain {
 			lblSubmit.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent arg0) {
-					new personalTimeTable().map(Integer.parseInt(rollfield.getText().toString()));
+					new PersonalTimeTable().map(Integer.parseInt(rollfield.getText().toString()));
 					backtoadminlabel.setVisible(false);
 					lblback_3.setVisible(true);
 					//professor_panel.setVisible(false);
@@ -858,7 +838,7 @@ public class WindowMain {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				completetimetableyr="1";
-				new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+				new CompleteTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
 			}
 		});
 		_1styear.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -873,7 +853,7 @@ public class WindowMain {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				completetimetableyr="2";
-				new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+				new CompleteTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
 			}
 		});
 		_2ndyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -888,7 +868,7 @@ public class WindowMain {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				completetimetableyr="3";
-				new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+				new CompleteTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
 			}
 		});
 		_3rdyear.setCursor(new Cursor(Cursor.HAND_CURSOR));
@@ -903,7 +883,7 @@ public class WindowMain {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				completetimetableyr="4";
-				new completeTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
+				new CompleteTimeTable().fetchTimeTable(completetimetablebr,completetimetableyr);
 			}
 		});
 		_4thyear.setCursor(new Cursor(Cursor.HAND_CURSOR));

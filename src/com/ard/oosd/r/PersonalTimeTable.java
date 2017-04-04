@@ -1,6 +1,6 @@
 package com.ard.oosd.r;
 
-public class personalTimeTable {
+public class PersonalTimeTable {
 	public String branch(int br)
 	{
 		String st = null;

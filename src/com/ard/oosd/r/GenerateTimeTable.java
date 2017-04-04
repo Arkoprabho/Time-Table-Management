@@ -3,7 +3,7 @@ package com.ard.oosd.r;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-public class generateTimeTable {
+public class GenerateTimeTable {
 	public void details(int numberofclass,int numberofrooms,HashMap<String,String[]> subjectlist)
 	{
 		System.out.println(numberofclass+":"+numberofrooms);
