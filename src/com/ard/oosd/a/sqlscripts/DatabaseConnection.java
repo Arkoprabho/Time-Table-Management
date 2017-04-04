@@ -15,6 +15,7 @@ public class DatabaseConnection {
     static String USER = "root";
     static String PASSWORD = "password";
     static String DATABASE = "timetablemanagement";
+    public static Connection connection = null;
 
     /**
      * Initialize the connection to the database
@@ -42,7 +43,6 @@ public class DatabaseConnection {
      * Connect to the database.
      */
     private void connect() {
-        Connection connection = null;
         try {
             Class.forName(JDBC_DRIVER);
             System.out.println("Connecting to database!");
