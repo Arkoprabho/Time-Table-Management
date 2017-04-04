@@ -16,8 +16,8 @@ public class Location implements DatabaseEntryInterface {
      * Initializes a new instance of the object
      * @param name name of the location (eg: C13)
      */
-    Location(String name) {
-        this.name = name;
+    public Location(String name) {
+        this.name = "C"+name;
         roomHashCode = hashCode();
         writeToDatabase();
     }
@@ -34,12 +34,10 @@ public class Location implements DatabaseEntryInterface {
      */
     @Override
     public boolean writeToDatabase() {
-        try(PreparedStatement locationStatement = DatabaseConnection.connection.prepareStatement("INSERT INTO ? (?, ?) VALUES (?, ?)")) {
-            locationStatement.setString(1, "location");
-            locationStatement.setString(2, "RoomHashCode");
-            locationStatement.setString(3, "Name");
-            locationStatement.setInt(4, roomHashCode);
-            locationStatement.setString(5, name);
+        try(PreparedStatement locationStatement = new DatabaseConnection().getCurrentConnection().prepareStatement("INSERT INTO location (RoomHashCode, Name) VALUES (?, ?)")) {
+            locationStatement.setInt(1, roomHashCode);
+            locationStatement.setString(2, name);
+            locationStatement.executeUpdate();
         } catch (SQLException e) {
             if(e.getErrorCode() == 1062) {
                 System.out.println("Location already exists!");
