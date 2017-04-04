@@ -60,10 +60,13 @@ class Subjects implements DatabaseEntryInterface {
 
             studentStatement.execute();
         } catch (SQLException e) {
-            if(e.getErrorCode() == 1062)
+            if(e.getErrorCode() == 1062) {
                 System.out.println("Subject code already exists!");
+                return true;
+            }
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
