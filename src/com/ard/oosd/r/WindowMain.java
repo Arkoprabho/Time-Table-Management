@@ -1,6 +1,12 @@
 package com.ard.oosd.r;
 //main class to display main gui
 
+import com.ard.oosd.a.Location;
+import com.ard.oosd.a.Professor;
+import com.ard.oosd.a.Subjects;
+import com.ard.oosd.a.Timetable;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.swing.JFrame;
@@ -27,6 +33,7 @@ import javax.swing.JOptionPane;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.util.List;
 
 public class WindowMain {
 
@@ -39,10 +46,10 @@ public class WindowMain {
 	private JPanel completetimetablebranch,completetimetableyear;
 	private String teachername;
 	private int numberofrooms,numberofclass;
-	private JList<String> list_1,list;
+	private JList<String> subjectCodeList, subjectNameList;
 	private String completetimetablebr,completetimetableyr;
 	private DefaultListModel<String> modelsubject,modelsubjectcode;
-	private HashMap<Integer,String> subjectskey=new HashMap<>();
+	private List<Subjects> subjectList = new ArrayList<>();
 	private HashMap<String,String[]> subjectteacher=new HashMap<>();
 	private JTextField rollfield;
 	private JTextField passwordfield;
@@ -246,7 +253,7 @@ public class WindowMain {
 		btnGenerate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-				new GenerateTimeTable().details(numberofclass,numberofrooms,subjectteacher);
+                new Timetable().generate();
 			}
 		});
 		btnGenerate.setBounds(574, 577, 89, 23);
@@ -305,7 +312,12 @@ public class WindowMain {
 				generatePanel.setVisible(false);
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
-				numberofrooms=Integer.parseInt(textField.getText().toString());
+
+				// Initialize all the locations.
+				for (int i = 0; i < Integer.parseInt(textField.getText()); ++i) {
+				    new Location(String.valueOf(i+1));
+                }
+
 				numberofclass=Integer.parseInt(textField_1.getText().toString());
 			}
 			else
@@ -329,14 +341,14 @@ public class WindowMain {
 		Subjectpanel.setLayout(null);
 		
 		modelsubject=new DefaultListModel<>();
-		list = new JList<>(modelsubject);
-		list.setBounds(618, 72, 176, 242);
-		Subjectpanel.add(list);
+		subjectNameList = new JList<>(modelsubject);
+		subjectNameList.setBounds(618, 72, 176, 242);
+		Subjectpanel.add(subjectNameList);
 		
 		modelsubjectcode=new DefaultListModel<>();
-		list_1 = new JList(modelsubjectcode);
-		list_1.setBounds(841, 72, 191, 242);
-		Subjectpanel.add(list_1);
+		subjectCodeList = new JList(modelsubjectcode);
+		subjectCodeList.setBounds(841, 72, 191, 242);
+		Subjectpanel.add(subjectCodeList);
 		
 		JLabel lblSubjects = new JLabel("Subjects");
 		lblSubjects.setForeground(Color.WHITE);
@@ -379,25 +391,25 @@ public class WindowMain {
 		btnRemove_1.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btnRemove_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				if(!list.isSelectionEmpty()&&list_1.isSelectionEmpty())
+				if(!subjectNameList.isSelectionEmpty()&& subjectCodeList.isSelectionEmpty())
 				{
-					int index=list.getSelectedIndex();
+					int index= subjectNameList.getSelectedIndex();
 					modelsubject.remove(index);
 					subjectname.setText(null);
 					modelsubjectcode.remove(index);
 					subjectcode.setText(null);
 				}
-				else if(!list_1.isSelectionEmpty()&&list.isSelectionEmpty())
+				else if(!subjectCodeList.isSelectionEmpty()&& subjectNameList.isSelectionEmpty())
 				{
-					int index=list_1.getSelectedIndex();
+					int index= subjectCodeList.getSelectedIndex();
 					modelsubject.remove(index);
 					subjectname.setText(null);
 					modelsubjectcode.remove(index);
 					subjectcode.setText(null);
 				}
-				else if(!list_1.isSelectionEmpty()&&!list.isSelectionEmpty())
+				else if(!subjectCodeList.isSelectionEmpty()&&!subjectNameList.isSelectionEmpty())
 				{
-					int index=list_1.getSelectedIndex();
+					int index= subjectCodeList.getSelectedIndex();
 					modelsubject.remove(index);
 					subjectname.setText(null);
 					modelsubjectcode.remove(index);
@@ -417,9 +429,9 @@ public class WindowMain {
 		btnClear_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				modelsubject.clear();
-				list.setModel(modelsubject);
+				subjectNameList.setModel(modelsubject);
 				modelsubjectcode.clear();
-				list_1.setModel(modelsubjectcode);
+				subjectCodeList.setModel(modelsubjectcode);
 			}
 		});
 		btnClear_1.setBounds(658, 339, 89, 23);
@@ -439,16 +451,16 @@ public class WindowMain {
 		btndone.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		btndone.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String s[]=new String[100] ;
 				int l=modelsubject.getSize();
 				for(int i=0;i<l;i++)
 				{
-					list.setSelectedIndex(i);
-					list_1.setSelectedIndex(i);
-					subjectskey.put(Integer.parseInt(list_1.getSelectedValue()), list.getSelectedValue());
-					s[i]=list.getSelectedValue().toString();
+					subjectNameList.setSelectedIndex(i);
+					subjectCodeList.setSelectedIndex(i);
+					subjectList.add(new Subjects(subjectNameList.getSelectedValue(), subjectCodeList.getSelectedValue()));
 				}
-				subjectteacher.put(teachername, s);
+				new Professor(teachername, subjectList);
+
+				// Set visibility
 				Subjectpanel.setVisible(false);
 				ProfessorPanel.setVisible(true);
 				generatePanel.setVisible(false);
@@ -462,13 +474,12 @@ public class WindowMain {
 				adminpanel.setVisible(false);
 				completetimetablebranch.setVisible(false);
 				completetimetableyear.setVisible(false);
+
 				//call function for extracting key and subject
-				new SubjectCode().details(subjectskey);
-				subjectskey.clear();
 				modelsubject.clear();
 				modelsubjectcode.clear();
-				list.setModel(modelsubject);
-				list_1.setModel(modelsubjectcode);
+				subjectNameList.setModel(modelsubject);
+				subjectCodeList.setModel(modelsubjectcode);
 			}
 		});
 		btndone.setBounds(361, 427, 230, 37);
