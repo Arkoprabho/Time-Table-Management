@@ -52,18 +52,18 @@ public class WindowMain {
 
 	public JFrame frame;
 	JLabel homeicon;
-	JLabel lblHomeimage,backtoadminlabel,lblback_3;
+	private JLabel lblHomeimage,backtoadminlabel,lblback_3;
 	//different panels used in the frame
-	JPanel homepanel,selectionpanel,appnamepanel;
-	JPanel Subjectpanel,ProfessorPanel,generatePanel,adminpanel,adminloginpanel,studentpanel,rollid_panel,aboutpanel;
-	JPanel completetimetablebranch,completetimetableyear;
-	String teachername;
-	int numberofrooms,numberofclass;
-	JList<String> list_1,list;
-	String completetimetablebr,completetimetableyr;
-	DefaultListModel<String> modelsubject,modelsubjectcode;
-	HashMap<Integer,String> subjectskey=new HashMap<>();
-	HashMap<String,String[]> subjectteacher=new HashMap<>();
+	private JPanel homepanel,selectionpanel,appnamepanel;
+	private JPanel Subjectpanel,ProfessorPanel,generatePanel,adminpanel,adminloginpanel,studentpanel,rollid_panel,aboutpanel;
+	private JPanel completetimetablebranch,completetimetableyear;
+	private String teachername;
+	private int numberofrooms,numberofclass;
+	private JList<String> list_1,list;
+	private String completetimetablebr,completetimetableyr;
+	private DefaultListModel<String> modelsubject,modelsubjectcode;
+	private HashMap<Integer,String> subjectskey=new HashMap<>();
+	private HashMap<String,String[]> subjectteacher=new HashMap<>();
 	private JTextField rollfield;
 	private JTextField passwordfield;
 	private JTextField textField;
@@ -252,7 +252,7 @@ public class WindowMain {
 					adminpanel.setVisible(false);
 					completetimetablebranch.setVisible(false);
 					completetimetableyear.setVisible(false);
-					teachername=teacherlist.getSelectedValue().toString();
+					teachername= teacherlist.getSelectedValue();
 					int index=teacherlist.getSelectedIndex();
 					model.remove(index);
 					Professorname.setText(null);
@@ -465,7 +465,7 @@ public class WindowMain {
 				{
 					list.setSelectedIndex(i);
 					list_1.setSelectedIndex(i);
-					subjectskey.put(Integer.parseInt(list_1.getSelectedValue().toString()), list.getSelectedValue().toString());
+					subjectskey.put(Integer.parseInt(list_1.getSelectedValue()), list.getSelectedValue());
 					s[i]=list.getSelectedValue().toString();
 				}
 				subjectteacher.put(teachername, s);
