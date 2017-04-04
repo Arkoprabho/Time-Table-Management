@@ -7,11 +7,12 @@ import org.cpsolver.coursett.Test;
 public class Timetable {
     /**
      * Generates the time table using the cpsolver API
-     * @param configPath
-     * @param inputPath
-     * @param outputFolderPath
      */
-    void generate(String configPath, String inputPath, String outputFolderPath) {
+    public void generate() {
+        String configPath, inputPath, outputFolderPath;
+        configPath = "llr.cfg";
+        inputPath = "input.xml";
+        outputFolderPath = "./src/output";
         Test.main(new String[] {
                 configPath,
                 inputPath,
