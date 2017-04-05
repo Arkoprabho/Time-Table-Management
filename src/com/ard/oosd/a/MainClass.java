@@ -1,9 +1,9 @@
 package com.ard.oosd.a;
 
-import java.awt.EventQueue;
-
 import com.ard.oosd.a.sqlscripts.DatabaseConnection;
 import com.ard.oosd.r.WindowMain;
+
+import java.awt.*;
 
 /**
  * @author Arko
