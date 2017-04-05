@@ -6,34 +6,17 @@ import com.ard.oosd.a.Professor;
 import com.ard.oosd.a.Subjects;
 import com.ard.oosd.a.Timetable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.DefaultListModel;
-import javax.swing.ImageIcon;
-import javax.swing.JPanel;
-
-import java.awt.Color;
-import java.awt.Cursor;
-
-import javax.swing.JButton;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
-import javax.swing.SwingConstants;
-import java.awt.CardLayout;
-import java.awt.Font;
-
-import javax.swing.JTextField;
-
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class WindowMain {
 
@@ -253,7 +236,8 @@ public class WindowMain {
 		btnGenerate.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
-                new Timetable().generate();
+			    // Start the method on a separate thread to prevent GUI from stalling.
+                new Thread(() -> new Timetable().generate()).start();
 			}
 		});
 		btnGenerate.setBounds(574, 577, 89, 23);
@@ -314,8 +298,10 @@ public class WindowMain {
 				completetimetableyear.setVisible(false);
 
 				// Initialize all the locations.
-				for (int i = 0; i < Integer.parseInt(textField.getText()); ++i) {
-				    new Location(String.valueOf(i+1));
+                ExecutorService executorService = Executors.newFixedThreadPool(Integer.parseInt(textField.getText()));
+                // TODO continue here.
+                for (int i = 0; i < Integer.parseInt(textField.getText()); ++i) {
+                    new Location(String.valueOf(i+1));
                 }
 
 				numberofclass=Integer.parseInt(textField_1.getText().toString());
@@ -458,7 +444,7 @@ public class WindowMain {
 					subjectCodeList.setSelectedIndex(i);
 					subjectList.add(new Subjects(subjectNameList.getSelectedValue(), subjectCodeList.getSelectedValue()));
 				}
-				new Professor(teachername, subjectList);
+				new Thread(() -> new Professor(teachername, subjectList)).start();
 
 				// Set visibility
 				Subjectpanel.setVisible(false);
