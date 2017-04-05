@@ -19,7 +19,9 @@ public class Location implements DatabaseEntryInterface {
     public Location(String name) {
         this.name = "C"+name;
         roomHashCode = hashCode();
-        writeToDatabase();
+        new Thread(() -> {
+            writeToDatabase();
+        }).start();
     }
 
     @Override
