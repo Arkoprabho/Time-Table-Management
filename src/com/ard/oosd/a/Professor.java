@@ -32,7 +32,7 @@ public class Professor implements DatabaseEntryInterface {
 	    // Set the associated subjects with the professor.
         setAssociatedSubject(subjects);
         // Write the details to database for fetch later on.
-        writeToDatabase();
+        new Thread(() -> writeToDatabase()).start();
     }
 
     /**
